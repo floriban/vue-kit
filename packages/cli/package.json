@@ -1,7 +1,7 @@
 {
-  "name": "@dediho/app-ui",
+  "name": "@dediho/vue-kit",
   "version": "0.1.0",
-  "description": "CLI para instalar la plantilla y los componentes de App UI en proyectos Vue.",
+  "description": "CLI para instalar la plantilla y los componentes de Vue Kit en proyectos Vue.",
   "keywords": [
     "vue",
     "dashboard",
@@ -12,16 +12,16 @@
   "author": "dediho",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/floriban/vuejs-ui.git",
+    "url": "git+https://github.com/floriban/vue-kit.git",
     "directory": "packages/cli"
   },
-  "homepage": "https://github.com/floriban/vuejs-ui#readme",
+  "homepage": "https://github.com/floriban/vue-kit#readme",
   "bugs": {
-    "url": "https://github.com/floriban/vuejs-ui/issues"
+    "url": "https://github.com/floriban/vue-kit/issues"
   },
   "type": "module",
   "bin": {
-    "app-ui": "src/index.js"
+    "vue-kit": "src/index.js"
   },
   "files": [
     "src",

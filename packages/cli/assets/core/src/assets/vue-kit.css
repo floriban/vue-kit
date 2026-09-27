@@ -2,7 +2,7 @@
 @import "@fontsource/poppins/latin-400.css";
 @import "@fontsource/poppins/latin-500.css";
 @import "@fontsource/poppins/latin-600.css";
-@import "./app-ui/theme.css";
-@import "./app-ui/base.css";
-@import "./app-ui/accessibility.css";
-@import "./app-ui-components.css";
+@import "./vue-kit/theme.css";
+@import "./vue-kit/base.css";
+@import "./vue-kit/accessibility.css";
+@import "./vue-kit-components.css";

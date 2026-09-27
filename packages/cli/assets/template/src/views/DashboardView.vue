@@ -10,7 +10,7 @@ const metrics = [
 <template>
   <section class="dashboard-welcome">
     <div><span>PLANTILLA BASE</span><h2>Todo listo para comenzar</h2><p>Esta instalación contiene solamente la estructura esencial. Añade los componentes que necesite cada proyecto mediante el CLI.</p></div>
-    <code>npx @dediho/app-ui add button</code>
+    <code>npx @dediho/vue-kit add button</code>
   </section>
   <section class="dashboard-metrics" aria-label="Resumen">
     <article v-for="metric in metrics" :key="metric.label">
@@ -19,7 +19,7 @@ const metrics = [
     </article>
   </section>
   <section class="dashboard-next">
-    <div><span>Próximo paso</span><h2>Instala solo lo que vas a utilizar</h2><p>Explora el registro con <code>app-ui list</code> y agrega uno o varios componentes.</p></div>
+    <div><span>Próximo paso</span><h2>Instala solo lo que vas a utilizar</h2><p>Explora el registro con <code>vue-kit list</code> y agrega uno o varios componentes.</p></div>
     <ArrowUpRight :size="28" />
   </section>
 </template>

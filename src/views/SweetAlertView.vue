@@ -79,7 +79,7 @@ const properties = [
   <DocsPageHeader
     eyebrow="Integraciones / SweetAlert2"
     title="Alertas · SweetAlert2"
-    description="Utiliza SweetAlert2 mediante un componente declarativo o un composable con el estilo de App UI."
+    description="Utiliza SweetAlert2 mediante un componente declarativo o un composable con el estilo de Vue Kit."
   />
 
   <section class="component-section">

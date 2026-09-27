@@ -17,7 +17,7 @@ const router = createRouter({
 })
 
 router.afterEach(to => {
-  document.title = `${String(to.meta.title ?? 'Dashboard')} · App UI`
+  document.title = `${String(to.meta.title ?? 'Dashboard')} · Vue Kit`
 })
 
 export default router

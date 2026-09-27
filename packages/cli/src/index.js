@@ -90,13 +90,23 @@ async function ensureStyleImport(cwd) {
   if (!mainRelative) throw new Error('No se encontró src/main.ts ni src/main.js.')
   const filename = path.join(cwd, mainRelative)
   const source = await readFile(filename, 'utf8')
-  const statement = "import './assets/app-ui.css'"
+  const statement = "import './assets/vue-kit.css'"
   if (!source.includes(statement)) await writeFile(filename, statement + '\n' + source)
+}
+
+function projectConfig(cwd) {
+  const current = path.join(cwd, 'vue-kit.json')
+  const legacy = path.join(cwd, 'app-ui.json')
+  return !existsSync(current) && existsSync(legacy) ? legacy : current
 }
 
 async function initProject(options) {
   await ensureVueProject(options.cwd)
-  const configFile = path.join(options.cwd, 'app-ui.json')
+  const configFile = projectConfig(options.cwd)
+  if (path.basename(configFile) === 'app-ui.json') {
+    console.log('Proyecto App UI existente detectado. Puedes usar "vue-kit add <componente>" conservando su configuración y estilos.')
+    return
+  }
   const coreRoot = path.join(assetsRoot, 'core')
   if (!existsSync(coreRoot)) throw new Error('No se encontraron los archivos base del paquete.')
   await copyTree(coreRoot, options.cwd, options.overwrite)
@@ -114,11 +124,11 @@ async function initProject(options) {
     })
   }
   await installDependencies(options.cwd, { '@fontsource/poppins': '^5.3.0' }, options.install)
-  console.log('App UI quedó inicializado. Usa "app-ui add <componente>" para agregar piezas.')
+  console.log('Vue Kit quedó inicializado. Usa "vue-kit add <componente>" para agregar piezas.')
 }
 
 async function loadRegistry() {
-  if (!existsSync(registryPath)) throw new Error('El registro no está generado. Ejecuta "npm run registry:build" en el repositorio de App UI.')
+  if (!existsSync(registryPath)) throw new Error('El registro no está generado. Ejecuta "npm run registry:build" en el repositorio de Vue Kit.')
   return readJson(registryPath)
 }
 
@@ -151,10 +161,10 @@ async function appendImports(filename, imports) {
 }
 
 async function addItems(names, options) {
-  if (!names.length) throw new Error('Indica al menos un componente: app-ui add button')
+  if (!names.length) throw new Error('Indica al menos un componente: vue-kit add button')
   await ensureVueProject(options.cwd)
-  const configFile = path.join(options.cwd, 'app-ui.json')
-  if (!existsSync(configFile)) throw new Error('App UI no está inicializado. Ejecuta primero "app-ui init".')
+  const configFile = projectConfig(options.cwd)
+  if (!existsSync(configFile)) throw new Error('Vue Kit no está inicializado. Ejecuta primero "vue-kit init".')
   const config = await readJson(configFile)
   const registry = await loadRegistry()
   const items = resolveItems(registry, names)
@@ -188,7 +198,7 @@ async function addItems(names, options) {
     config.installed[item.name] = packageInfo.version
   }
 
-  await appendImports(path.join(options.cwd, 'src/assets/app-ui-components.css'), [
+  await appendImports(path.join(options.cwd, path.basename(configFile) === 'app-ui.json' ? 'src/assets/app-ui-components.css' : 'src/assets/vue-kit-components.css'), [
     ...[...externalStyles],
     ...[...styles].map(value => `./styles/components/${value}`)
   ])
@@ -199,7 +209,7 @@ async function addItems(names, options) {
 }
 
 async function createProject(name, options) {
-  if (!name) throw new Error('Indica el nombre del proyecto: app-ui create mi-dashboard')
+  if (!name) throw new Error('Indica el nombre del proyecto: vue-kit create mi-dashboard')
   const target = path.resolve(options.cwd, name)
   if (existsSync(target) && (await readdir(target)).length) throw new Error(`La carpeta "${target}" no está vacía.`)
   await mkdir(target, { recursive: true })
@@ -223,19 +233,19 @@ async function listItems() {
 }
 
 function help() {
-  console.log(`App UI ${packageInfo.version}
+  console.log(`Vue Kit ${packageInfo.version}
 
 Uso:
-  app-ui create <nombre> [--skip-install]
-  app-ui init [--cwd <ruta>] [--skip-install] [--force]
-  app-ui add <componente...> [--skip-install] [--overwrite]
-  app-ui list
+  vue-kit create <nombre> [--skip-install]
+  vue-kit init [--cwd <ruta>] [--skip-install] [--force]
+  vue-kit add <componente...> [--skip-install] [--overwrite]
+  vue-kit list
 
 Ejemplos:
-  app-ui create mi-dashboard
-  app-ui init
-  app-ui add input-group
-  app-ui add table pagination`)
+  vue-kit create mi-dashboard
+  vue-kit init
+  vue-kit add input-group
+  vue-kit add table pagination`)
 }
 
 const { positional, options } = parseArguments(process.argv.slice(2))

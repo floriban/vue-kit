@@ -1,5 +1,5 @@
 {
-  "name": "vuejs-ui",
+  "name": "vue-kit",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -54,10 +54,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/floriban/vuejs-ui.git"
+    "url": "git+https://github.com/floriban/vue-kit.git"
   },
-  "homepage": "https://github.com/floriban/vuejs-ui#readme",
+  "homepage": "https://github.com/floriban/vue-kit#readme",
   "bugs": {
-    "url": "https://github.com/floriban/vuejs-ui/issues"
+    "url": "https://github.com/floriban/vue-kit/issues"
   }
 }

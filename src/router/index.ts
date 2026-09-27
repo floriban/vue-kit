@@ -195,7 +195,7 @@ const router = createRouter({
 router.afterEach((to) => {
   const item = findNavigationItem(to.name)
   const specialTitle = to.name === 'not-found' ? 'Página no encontrada' : to.name === 'route-error' ? 'Error de carga' : undefined
-  document.title = `${to.meta.title ?? specialTitle ?? item?.label ?? 'App UI'} · App UI`
+  document.title = `${to.meta.title ?? specialTitle ?? item?.label ?? 'Vue Kit'} · Vue Kit`
 })
 
 router.onError(() => {

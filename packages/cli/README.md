@@ -1,33 +1,39 @@
-# App UI CLI
+# Vue Kit CLI
 
-Inicializa App UI en un proyecto Vue existente:
+Inicializa Vue Kit en un proyecto Vue existente:
 
 ```bash
-npx @dediho/app-ui init
+npx @dediho/vue-kit init
 ```
 
 Crea un dashboard nuevo:
 
 ```bash
-npx @dediho/app-ui create mi-dashboard
+npx @dediho/vue-kit create mi-dashboard
 ```
 
 Instala componentes y presets bajo demanda:
 
 ```bash
-npx @dediho/app-ui add input-group
-npx @dediho/app-ui add table pagination
-npx @dediho/app-ui add forms
+npx @dediho/vue-kit add input-group
+npx @dediho/vue-kit add table pagination
+npx @dediho/vue-kit add forms
 ```
 
-Agrega integraciones mediante wrappers de App UI:
+Agrega integraciones mediante wrappers de Vue Kit:
 
 ```bash
-npx @dediho/app-ui add sweet-alert
-npx @dediho/app-ui add sortable
-npx @dediho/app-ui add editor
-npx @dediho/app-ui add chart
-npx @dediho/app-ui add flatpickr
+npx @dediho/vue-kit add sweet-alert
+npx @dediho/vue-kit add sortable
+npx @dediho/vue-kit add editor
+npx @dediho/vue-kit add chart
+npx @dediho/vue-kit add flatpickr
 ```
 
-Usa `npx @dediho/app-ui list` para consultar el registro. Antes de publicar el paquete ejecuta `npm run registry:build` desde la raíz.
+Usa `npx @dediho/vue-kit list` para consultar el registro. Antes de publicar el paquete ejecuta `npm run registry:build` desde la raíz.
+
+## Proyectos anteriores
+
+Vue Kit reemplaza a `@dediho/app-ui`. El comando `vue-kit add` también reconoce
+`app-ui.json` y conserva los estilos de los proyectos creados con el paquete anterior.
+Los proyectos nuevos usan `vue-kit.json` y archivos de estilos `vue-kit`.

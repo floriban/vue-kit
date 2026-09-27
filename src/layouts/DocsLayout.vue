@@ -40,9 +40,9 @@ function handleMobileNavigation(event: MouseEvent) {
   <div class="docs-layout" :class="{ 'docs-layout--collapsed': collapsed }">
     <aside class="docs-sidebar">
       <div class="sidebar-header">
-        <RouterLink class="brand" :to="{ name: dashboardItem.name }" aria-label="App UI, Dashboard">
+        <RouterLink class="brand" :to="{ name: dashboardItem.name }" aria-label="Vue Kit, Dashboard">
           <span class="brand__mark shrink-0 select-none"><img :src="logoUrl" alt="" width="38" height="38" /></span>
-          <span class="brand__text"><strong>App UI</strong><small>Componentes Vue</small></span>
+          <span class="brand__text"><strong>Vue Kit</strong><small>Componentes Vue</small></span>
         </RouterLink>
         <button class="sidebar-toggle" type="button" :aria-label="collapsed ? 'Fijar menú expandido' : 'Plegar menú'"
           :aria-expanded="!collapsed" aria-controls="main-navigation"
@@ -73,7 +73,7 @@ function handleMobileNavigation(event: MouseEvent) {
         </RouterView>
       </div>
     </main>
-    <AppDrawer v-if="isMobile" v-model="mobileOpen" title="App UI" description="Catálogo de componentes"
+    <AppDrawer v-if="isMobile" v-model="mobileOpen" title="Vue Kit" description="Catálogo de componentes"
       placement="left" size="sm" panel-class="mobile-navigation-drawer" id="mobile-navigation-panel">
       <DocsNavigation id="mobile-navigation" v-model="openGroup" :active-group="activeGroup?.id"
         @click="handleMobileNavigation" />

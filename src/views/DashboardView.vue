@@ -8,7 +8,7 @@ const totalComponents = navigationGroups.reduce((total, group) => total + group.
 </script>
 
 <template>
-  <DocsPageHeader eyebrow="App UI / Inicio" title="Dashboard" description="Explora la colección de componentes Vue, organizada por su función dentro de una interfaz." />
+  <DocsPageHeader eyebrow="Vue Kit / Inicio" title="Dashboard" description="Explora la colección de componentes Vue, organizada por su función dentro de una interfaz." />
 
   <section class="dashboard-overview" aria-label="Resumen del catálogo">
     <article><span class="dashboard-overview__icon dashboard-overview__icon--primary"><Boxes :size="23" /></span><div><strong>{{ totalComponents }}</strong><small>componentes documentados</small></div></article>

@@ -17,12 +17,12 @@ watch(() => route.fullPath, () => { mobileOpen.value = false })
   <div class="app-shell">
     <button v-if="mobileOpen" class="app-shell__backdrop" aria-label="Cerrar navegación" @click="mobileOpen = false"></button>
     <aside class="app-shell__sidebar" :class="{ 'is-open': mobileOpen }">
-      <RouterLink class="app-shell__brand" :to="{ name: 'dashboard' }"><span><img :src="logoUrl" alt="" width="35" height="35" /></span><strong>App UI</strong></RouterLink>
+      <RouterLink class="app-shell__brand" :to="{ name: 'dashboard' }"><span><img :src="logoUrl" alt="" width="35" height="35" /></span><strong>Vue Kit</strong></RouterLink>
       <button class="app-shell__close" type="button" aria-label="Cerrar menú" @click="mobileOpen = false"><X :size="20" /></button>
       <nav aria-label="Navegación principal">
         <RouterLink :to="{ name: 'dashboard' }"><LayoutDashboard :size="19" /><span>Dashboard</span></RouterLink>
       </nav>
-      <div class="app-shell__tip"><PackagePlus :size="18" /><p>Agrega componentes con <code>app-ui add</code>.</p></div>
+      <div class="app-shell__tip"><PackagePlus :size="18" /><p>Agrega componentes con <code>vue-kit add</code>.</p></div>
     </aside>
     <div class="app-shell__page">
       <header class="app-shell__header">

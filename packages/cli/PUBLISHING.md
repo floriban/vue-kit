@@ -16,7 +16,7 @@ ese archivo `.tgz` en un proyecto temporal antes de cada versión.
 El paquete se publica bajo el ámbito del usuario `dediho`:
 
 ```sh
-npx @dediho/app-ui create mi-dashboard
+npx @dediho/vue-kit create mi-dashboard
 ```
 
 La distribución utiliza licencia MIT.

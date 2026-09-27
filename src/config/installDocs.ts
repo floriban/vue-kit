@@ -114,7 +114,7 @@ export function getInstallDocumentation(routeName: unknown): InstallDocumentatio
     .filter((name, index, names) => names.indexOf(name) === index)
 
   return {
-    command: `npx @dediho/app-ui@latest add ${config.items.join(' ')}`,
+    command: `npx @dediho/vue-kit@latest add ${config.items.join(' ')}`,
     description: config.description,
     components,
     dependencies,

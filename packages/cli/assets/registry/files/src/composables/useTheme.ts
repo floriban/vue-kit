@@ -2,7 +2,7 @@ import { ref } from 'vue'
 
 type Theme = 'light' | 'dark'
 const theme = ref<Theme>('light')
-const storageKey = 'app-ui-theme'
+const storageKey = 'vue-kit-theme'
 
 function applyTheme(value: Theme) {
   theme.value = value
@@ -12,7 +12,7 @@ function applyTheme(value: Theme) {
 
 export function initializeTheme() {
   let saved: string | null = null
-  try { saved = localStorage.getItem(storageKey) } catch { /* Storage is optional. */ }
+  try { saved = localStorage.getItem(storageKey) ?? localStorage.getItem('app-ui-theme') } catch { /* Storage is optional. */ }
   applyTheme(saved === 'light' || saved === 'dark' ? saved
     : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
 }

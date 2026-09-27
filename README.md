@@ -1,4 +1,4 @@
-# App UI
+# Vue Kit
 
 [Ver demo en vivo](https://lingering-boat-6e61.floriban.workers.dev/dashboard)
 
@@ -21,20 +21,20 @@ node packages/cli/src/index.js create mi-dashboard
 Dentro de un proyecto Vue existente:
 
 ```sh
-node /ruta/app-ui/packages/cli/src/index.js init
-node /ruta/app-ui/packages/cli/src/index.js add input-group
+node /ruta/vue-kit/packages/cli/src/index.js init
+node /ruta/vue-kit/packages/cli/src/index.js add input-group
 ```
 
-El paquete está disponible en [npm](https://www.npmjs.com/package/@dediho/app-ui). Puedes usarlo directamente:
+El paquete está disponible en [npm](https://www.npmjs.com/package/@dediho/vue-kit). Puedes usarlo directamente:
 
 ```sh
-npx @dediho/app-ui create mi-dashboard
-npx @dediho/app-ui init
-npx @dediho/app-ui add input-group
-npx @dediho/app-ui add sweet-alert
-npx @dediho/app-ui add sortable
-npx @dediho/app-ui add flatpickr
-npx @dediho/app-ui list
+npx @dediho/vue-kit create mi-dashboard
+npx @dediho/vue-kit init
+npx @dediho/vue-kit add input-group
+npx @dediho/vue-kit add sweet-alert
+npx @dediho/vue-kit add sortable
+npx @dediho/vue-kit add flatpickr
+npx @dediho/vue-kit list
 ```
 
 `create` genera un dashboard mínimo y funcional. `init` prepara un proyecto Vue
