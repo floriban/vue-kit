@@ -129,3 +129,22 @@ Los fragmentos cortos presuponen que el componente correspondiente está importa
 Próxima etapa: construir una pantalla funcional que combine los componentes.
 
 No hay backend ni autenticación. Los datos actuales son ejemplos.
+
+## Demo en Cloudflare
+
+Ejecuta `npm run build` y sube **todo el contenido de `dist`**, incluido `_redirects`,
+en **New deployment** del Worker existente `lingering-boat-6e61`.
+Las reglas de `public/_redirects` sirven `index.html` para las rutas del catálogo
+y permiten abrirlas directamente o recargarlas. Al agregar rutas nuevas, actualiza
+este archivo; no uses una regla global que reescriba también JavaScript, CSS e imágenes.
+
+Para desplegar con Wrangler, la configuración `wrangler.jsonc` activa el modo SPA
+también para rutas desconocidas, que Vue mostrará como página no encontrada:
+
+```sh
+npm run build
+npx wrangler deploy
+```
+
+El archivo `wrangler.jsonc` se utiliza al desplegar con Wrangler; subir solamente
+el `dist` por el panel no aplica esa configuración.

@@ -49,3 +49,6 @@ __screenshots__/
 *.p12
 *.pfx
 *.tgz
+
+# Cloudflare local state
+.wrangler/
