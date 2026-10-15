@@ -24,11 +24,11 @@ const methods = [
 <template>
   <section class="component-section">
     <div class="section-heading">
-      <div><span>06</span><h2>Referencia de Toast</h2></div>
+      <div><span>06</span><h2>Referencia de AppToast</h2></div>
       <p>Componentes, opciones y métodos para administrar notificaciones.</p>
     </div>
 
-    <AppCard title="API del sistema">
+    <AppCard title="API del componente">
       <div class="docs-reference">
         <h3>AppToast</h3>
         <AppTable label="Propiedades de AppToast" compact>

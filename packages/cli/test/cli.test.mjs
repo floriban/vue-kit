@@ -23,6 +23,18 @@ test('create genera un dashboard mínimo sin instalar paquetes', async () => {
     assert.equal(existsSync(path.join(project, 'src/layouts/AppDashboardLayout.vue')), true)
     assert.equal(existsSync(path.join(project, 'src/assets/vue-kit/theme.css')), true)
     assert.equal(JSON.parse(await readFile(path.join(project, 'package.json'), 'utf8')).name, 'demo')
+    assert.equal(
+      await readFile(path.join(project, 'src/components/layout/AppDashboardHeader.vue'), 'utf8'),
+      await readFile(new URL('../../../src/components/docs/DocsHeader.vue', import.meta.url), 'utf8'),
+    )
+    for (const component of ['AppTooltip', 'AppDropdown', 'AppDropdownItem', 'AppDropdownSeparator', 'AppDrawer', 'AppNotificationBadge']) {
+      assert.equal(existsSync(path.join(project, 'src/components/ui', component + '.vue')), true)
+    }
+    assert.equal(existsSync(path.join(project, 'src/composables/modalScrollLock.ts')), true)
+    const headerStyles = await readFile(path.join(project, 'src/assets/dashboard-header.css'), 'utf8')
+    assert.match(headerStyles, /dashboard-user-menu \.app-dropdown__chevron\s*\{\s*display: none/)
+    const demoLogo = await readFile(new URL('../../../public/logo.png', import.meta.url))
+    assert.deepEqual(await readFile(path.join(project, 'public/logo.png')), demoLogo)
   } finally {
     await rm(temporary, { recursive: true, force: true })
   }
@@ -35,13 +47,14 @@ test('init y add copian únicamente el componente y sus dependencias', async () 
     await writeFile(path.join(temporary, 'package.json'), JSON.stringify({ name: 'fixture', private: true, dependencies: { vue: '^3.5.0' } }))
     await writeFile(path.join(temporary, 'src/main.ts'), "import { createApp } from 'vue'\n")
     run(['init', '--cwd', temporary, '--skip-install'])
-    run(['add', 'input-group', '--cwd', temporary, '--skip-install'])
+    run(['add', 'input-group', 'notification-badge', '--cwd', temporary, '--skip-install'])
 
-    for (const filename of ['AppInputGroup.vue', 'AppInput.vue', 'AppSelect.vue', 'AppButton.vue']) {
+    for (const filename of ['AppInputGroup.vue', 'AppInput.vue', 'AppSelect.vue', 'AppButton.vue', 'AppNotificationBadge.vue']) {
       assert.equal(existsSync(path.join(temporary, 'src/components/ui', filename)), true, filename)
     }
     assert.equal(existsSync(path.join(temporary, 'src/components/ui/AppTable.vue')), false)
     const styles = await readFile(path.join(temporary, 'src/assets/vue-kit-components.css'), 'utf8')
+    assert.match(styles, /notification-badges\.css/)
     assert.match(styles, /input-groups\.css/)
     assert.match(styles, /forms\.css/)
     assert.match(styles, /buttons\.css/)
@@ -113,7 +126,8 @@ test('Vue Kit conserva configuración y estilos de proyectos App UI', async () =
     assert.equal(existsSync(path.join(temporary, 'vue-kit.json')), false)
     const config = JSON.parse(await readFile(path.join(temporary, 'app-ui.json'), 'utf8'))
     assert.equal(config.installed.input, '0.1.0')
-    assert.equal(config.installed.button, '0.1.0')
+    const currentPackage = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
+    assert.equal(config.installed.button, currentPackage.version)
     const styles = await readFile(path.join(temporary, 'src/assets/app-ui-components.css'), 'utf8')
     assert.ok(styles.includes('/* custom styles */'))
     assert.ok(styles.includes('buttons.css'))

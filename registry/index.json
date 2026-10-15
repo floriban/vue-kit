@@ -524,6 +524,23 @@
       "externalStyles": []
     },
     {
+      "name": "notification-badge",
+      "type": "component",
+      "description": "Instala AppNotificationBadge.",
+      "files": [
+        {
+          "source": "src/components/ui/AppNotificationBadge.vue",
+          "target": "src/components/ui/AppNotificationBadge.vue"
+        }
+      ],
+      "registryDependencies": [],
+      "npmDependencies": {},
+      "styles": [
+        "notification-badges.css"
+      ],
+      "externalStyles": []
+    },
+    {
       "name": "pagination",
       "type": "component",
       "description": "Instala AppPagination.",

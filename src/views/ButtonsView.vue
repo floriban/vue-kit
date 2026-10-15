@@ -152,6 +152,7 @@ const colors = [
       </div>
       <p>Agrupa acciones relacionadas en un solo control visual.</p>
     </div>
+    <p class="docs-reference-note">Para este ejemplo instala el grupo: <code>npx @dediho/vue-kit@latest add button-group</code>. Este comando incluye también AppButton.</p>
     <div class="showcase-panel component-row">
       <AppButtonGroup label="Alineación del contenido">
         <AppButton color="neutral" variant="outline">Izquierda</AppButton>

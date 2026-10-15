@@ -68,6 +68,8 @@
 /input-groups/ /input-groups 301
 /input-mask / 200
 /input-mask/ /input-mask 301
+/notification-badges / 200
+/notification-badges/ /notification-badges 301
 /modals / 200
 /modals/ /modals 301
 /pagination / 200

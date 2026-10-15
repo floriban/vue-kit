@@ -1,0 +1,74 @@
+.app-tooltip,
+.app-popover {
+  display: inline-flex;
+}
+
+.app-tooltip__bubble {
+  position: fixed;
+  z-index: 1300;
+  max-width: 250px;
+  padding: 7px 10px;
+  visibility: hidden;
+  border-radius: 6px;
+  background: var(--color-dark);
+  box-shadow: 0 5px 16px rgba(24, 28, 50, 0.22);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1.45;
+  pointer-events: none;
+  text-align: center;
+}
+
+.app-tooltip__bubble--positioned {
+  visibility: visible;
+}
+
+.app-tooltip__bubble::after {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: var(--color-dark);
+  content: '';
+  transform: rotate(45deg);
+}
+
+.app-tooltip__bubble--top::after {
+  bottom: -3px;
+  left: calc(50% - 3px);
+}
+
+.app-tooltip__bubble--bottom::after {
+  top: -3px;
+  left: calc(50% - 3px);
+}
+
+.app-tooltip__bubble--left::after {
+  top: calc(50% - 3px);
+  right: -3px;
+}
+
+.app-tooltip__bubble--right::after {
+  top: calc(50% - 3px);
+  left: -3px;
+}
+
+.app-tooltip-fade-enter-active,
+.app-tooltip-fade-leave-active {
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+}
+
+.app-tooltip-fade-enter-from,
+.app-tooltip-fade-leave-to {
+  opacity: 0;
+  transform: translateY(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-tooltip-fade-enter-active,
+  .app-tooltip-fade-leave-active {
+    transition-duration: 1ms;
+  }
+}

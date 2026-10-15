@@ -59,7 +59,7 @@ function handleMobileNavigation(event: MouseEvent) {
       </div>
     </aside>
     <main class="docs-main min-w-0">
-      <DocsHeader :title="currentTitle" :mobile-menu-open="mobileOpen" @open-menu="mobileOpen = true" />
+      <DocsHeader :navigation-items="[{ name: 'dashboard', label: 'Dashboard' }, { name: 'buttons', label: 'Componentes' }, { name: 'forms', label: 'Formularios' }, { name: 'tables', label: 'Tablas' }]" indicators-route="notification-badges" :title="currentTitle" :mobile-menu-open="mobileOpen" @open-menu="mobileOpen = true" />
       <div class="docs-content">
         <AppState v-if="renderError" state="error" title="No pudimos mostrar este componente"
           description="Recarga la página para volver a intentarlo." action-label="Recargar" @action="reloadPage" />

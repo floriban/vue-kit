@@ -1,6 +1,6 @@
 {
   "name": "@dediho/vue-kit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "CLI para instalar la plantilla y los componentes de Vue Kit en proyectos Vue.",
   "keywords": [
     "vue",

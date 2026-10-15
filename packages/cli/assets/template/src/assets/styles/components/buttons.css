@@ -1,0 +1,216 @@
+.app-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    background-color 0.15s,
+    border-color 0.15s;
+}
+
+.app-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.app-button--sm {
+  min-height: 34px;
+  padding: 0 13px;
+  font-size: 0.8rem;
+}
+
+.app-button--md {
+  min-height: 40px;
+  padding: 0 17px;
+  font-size: 0.88rem;
+}
+
+.app-button--lg {
+  min-height: 46px;
+  padding: 0 21px;
+  font-size: 0.94rem;
+}
+
+.app-button--block {
+  width: 100%;
+}
+
+.app-button svg {
+  flex: 0 0 auto;
+}
+
+.app-button--icon-only {
+  width: 40px;
+  padding-inline: 0;
+}
+
+.app-button--icon-only.app-button--sm {
+  width: 34px;
+}
+
+.app-button--icon-only.app-button--lg {
+  width: 46px;
+}
+
+.app-button--primary {
+  --button-color: var(--color-primary);
+  --button-solid: var(--color-primary);
+  --button-hover: var(--color-primary-hover);
+  --button-soft: var(--color-primary-light);
+  --button-border: var(--color-primary);
+}
+
+.app-button--neutral {
+  --button-color: var(--color-gray-800);
+  --button-solid: var(--color-gray-300);
+  --button-hover: var(--color-neutral-hover);
+  --button-soft: var(--color-light);
+  --button-border: var(--color-gray-300);
+}
+
+.app-button--info {
+  --button-color: var(--color-info);
+  --button-solid: var(--color-info);
+  --button-hover: var(--color-info-hover);
+  --button-soft: var(--color-info-light);
+  --button-border: var(--color-info);
+}
+
+.app-button--success {
+  --button-color: var(--color-success);
+  --button-solid: var(--color-success);
+  --button-hover: var(--color-success-hover);
+  --button-soft: var(--color-success-light);
+  --button-border: var(--color-success);
+}
+
+.app-button--warning {
+  --button-color: var(--color-warning);
+  --button-solid: var(--color-warning);
+  --button-hover: var(--color-warning-hover);
+  --button-soft: var(--color-warning-light);
+  --button-border: var(--color-warning);
+}
+
+.app-button--danger {
+  --button-color: var(--color-danger);
+  --button-solid: var(--color-danger);
+  --button-hover: var(--color-danger-hover);
+  --button-soft: var(--color-danger-light);
+  --button-border: var(--color-danger);
+}
+
+.app-button--solid {
+  color: #ffffff;
+  background: var(--button-solid);
+}
+
+.app-button--solid.app-button--neutral {
+  color: var(--color-gray-800);
+}
+
+.app-button--solid:hover:not(:disabled) {
+  background: var(--button-hover);
+}
+
+.app-button--outline {
+  color: var(--button-color);
+  border-color: var(--button-border);
+  background: var(--color-white);
+}
+
+.app-button--outline:hover:not(:disabled) {
+  background: var(--button-soft);
+}
+
+.app-button--soft {
+  color: var(--button-color);
+  background: var(--button-soft);
+}
+
+.app-button--soft:hover:not(:disabled) {
+  color: #ffffff;
+  background: var(--button-solid);
+}
+
+.app-button--ghost {
+  color: var(--button-color);
+  background: transparent;
+}
+
+.app-button--ghost:hover:not(:disabled) {
+  background: var(--button-soft);
+}
+
+.app-button__spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.app-button-group {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.app-button-group--vertical {
+  flex-direction: column;
+}
+
+.app-button-group--attached {
+  gap: 0;
+}
+
+.app-button-group--attached.app-button-group--horizontal > .app-button {
+  border-radius: 0;
+}
+
+.app-button-group--attached.app-button-group--horizontal
+  > .app-button
+  + .app-button {
+  margin-left: -1px;
+}
+
+.app-button-group--attached.app-button-group--horizontal
+  > .app-button:first-child {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.app-button-group--attached.app-button-group--horizontal
+  > .app-button:last-child {
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.app-button-group--attached.app-button-group--vertical > .app-button {
+  border-radius: 0;
+}
+
+.app-button-group--attached.app-button-group--vertical
+  > .app-button
+  + .app-button {
+  margin-top: -1px;
+}
+
+.app-button-group--attached.app-button-group--vertical
+  > .app-button:first-child {
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.app-button-group--attached.app-button-group--vertical
+  > .app-button:last-child {
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

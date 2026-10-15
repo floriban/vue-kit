@@ -94,6 +94,7 @@ const router = createRouter({
           name: 'stepper',
           component: () => import('../views/StepperView.vue'),
         },
+        { path: 'notification-badges', name: 'notification-badges', component: () => import('../views/NotificationBadgesView.vue') },
         {
           path: 'badges',
           name: 'badges',

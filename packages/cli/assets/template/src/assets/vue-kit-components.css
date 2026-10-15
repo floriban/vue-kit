@@ -1,1 +1,6 @@
-/* vue-kit add agrega aquí los estilos de cada componente. */
+@import "./styles/components/buttons.css";
+@import "./styles/components/notification-badges.css";
+@import "./styles/components/tooltips.css";
+@import "./styles/components/dropdowns.css";
+@import "./styles/components/drawer-utilities.css";
+@import "./dashboard-header.css";

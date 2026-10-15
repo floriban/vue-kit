@@ -1,5 +1,10 @@
 :root {
   color-scheme: light;
+  --color-sidebar: #1e1e2d;
+  --color-sidebar-header: #1a1a27;
+  --color-sidebar-text: #a2a3b7;
+  --color-sidebar-active: #1b1b28;
+  --color-sidebar-border: #2d2d42;
   --color-primary: #0f6fc6;
   --color-primary-hover: #0c5da8;
   --color-primary-light: #e5f2ff;

@@ -1,10 +1,17 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "typescript": true,
   "paths": {
     "components": "src/components/ui",
     "composables": "src/composables",
     "styles": "src/assets/styles/components"
   },
-  "installed": {}
+  "installed": {
+    "notification-badge": "0.2.0",
+    "tooltip": "0.2.0",
+    "dropdown": "0.2.0",
+    "dropdown-item": "0.2.0",
+    "dropdown-separator": "0.2.0",
+    "drawer": "0.2.0"
+  }
 }

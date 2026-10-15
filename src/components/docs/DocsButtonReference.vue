@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppCard from '../ui/AppCard.vue'
 import AppTable from '../ui/AppTable.vue'
 
 const properties = [
@@ -19,7 +20,8 @@ const properties = [
       <div><span>08</span><h2>Referencia de AppButton</h2></div>
       <p>Propiedades, eventos y contenido.</p>
     </div>
-    <div class="showcase-panel docs-reference">
+    <AppCard title="API del componente">
+      <div class="docs-reference">
       <AppTable label="Propiedades de AppButton" compact>
         <thead><tr><th scope="col">Propiedad</th><th scope="col">Tipo</th><th scope="col">Por defecto</th><th scope="col">Descripción</th></tr></thead>
         <tbody>
@@ -45,6 +47,7 @@ const properties = [
       </ul>
       <h3>AppButtonGroup</h3>
       <p><code>attached</code> une los botones (por defecto <code>true</code>), <code>orientation</code> acepta <code>horizontal</code> o <code>vertical</code> (por defecto <code>horizontal</code>) y <code>label</code> da nombre al grupo. Su slot recibe los botones; no administra una selección.</p>
-    </div>
+      </div>
+    </AppCard>
   </section>
 </template>

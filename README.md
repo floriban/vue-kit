@@ -1,150 +1,220 @@
 # Vue Kit
 
-[Ver demo en vivo](https://lingering-boat-6e61.floriban.workers.dev/dashboard)
+Crea un dashboard con Vue 3 y TypeScript, o agrega componentes a un proyecto Vue existente. El CLI copia los archivos a tu proyecto para que puedas adaptarlos.
 
-Catálogo de componentes reutilizables con Vue 3, TypeScript, Vite y Tailwind CSS 4.
-Incluye componentes visuales, formularios, datos, navegación, feedback, páginas HTTP e integraciones con Tiptap, Flatpickr, ECharts, SweetAlert2 y SortableJS.
+[Ver demo](https://lingering-boat-6e61.floriban.workers.dev/dashboard) · [Repositorio en GitHub](https://github.com/floriban/vue-kit) · [Paquete en npm](https://www.npmjs.com/package/@dediho/vue-kit)
 
-## Plantilla y CLI
+## Requisitos
 
-El catálogo también funciona como fuente de una plantilla instalable. El CLI está en
-`packages/cli` y el registro generado puede consultarse en `registry/index.json`.
+- Node.js `^22.18.0 || >=24.12.0` para crear y ejecutar la plantilla.
+- npm y npx disponibles en la terminal.
+- Para integrar componentes en un proyecto existente: Vue 3 y una entrada `src/main.ts` o `src/main.js`.
 
-Durante el desarrollo local:
+El CLI por sí solo admite Node.js 20 o superior; la plantilla utiliza Vite y requiere las versiones indicadas arriba.
+
+## Inicio rápido: crear un dashboard
+
+Ejecuta en la carpeta donde quieres crear tu proyecto:
+
+```sh
+npx @dediho/vue-kit create mi-dashboard
+cd mi-dashboard
+npm run dev
+```
+
+Abre la dirección que muestre Vite en la terminal. El comando crea la carpeta e instala las dependencias con npm; no necesitas ejecutar `init` después.
+
+La plantilla incluye navegación lateral plegable, modo claro y oscuro, una vista de dashboard y una página para rutas no encontradas. Es un punto de partida para tu aplicación; el demo muestra además el catálogo completo de componentes e integraciones. Los datos son de ejemplo y no incluye backend ni autenticación.
+
+Para generar y revisar la compilación de producción, dentro del proyecto:
+
+```sh
+npm run build
+npm run preview
+```
+
+## Agregar y usar componentes
+
+Dentro de tu dashboard, instala los componentes que necesites:
+
+```sh
+npx @dediho/vue-kit add button
+npx @dediho/vue-kit add table pagination
+```
+
+El CLI copia los componentes a `src/components/ui/`, agrega sus estilos e instala las dependencias necesarias. Los componentes se importan en la vista donde los vas a usar; no se registran globalmente.
+
+Por ejemplo, después de agregar `button`, puedes usarlo en una vista:
+
+```vue
+<script setup lang="ts">
+import AppButton from '../components/ui/AppButton.vue'
+
+function guardar() {
+  console.log('Guardar cambios')
+}
+</script>
+
+<template>
+  <AppButton @click="guardar">Guardar cambios</AppButton>
+</template>
+```
+
+La ruta del import corresponde a una vista dentro de `src/views/`. Consulta el [demo](https://lingering-boat-6e61.floriban.workers.dev/dashboard) para ver ejemplos, propiedades y eventos.
+
+### Presets e integraciones
+
+Un preset instala un conjunto de componentes relacionados:
+
+| Preset | Incluye |
+| --- | --- |
+| `forms` | Campos, controles de formulario y grupos de entradas y botones. |
+| `data-table` | Tabla, paginación, estados y spinner. |
+| `feedback` | Alertas, modales, notificaciones y estados. |
+| `flatpickr` | Selectores de fecha y hora. |
+
+```sh
+npx @dediho/vue-kit add forms
+npx @dediho/vue-kit add data-table
+```
+
+También puedes agregar integraciones individualmente:
+
+| Comando | Integración |
+| --- | --- |
+| `npx @dediho/vue-kit add editor` | Editor de texto con Tiptap. |
+| `npx @dediho/vue-kit add chart` | Gráficos con ECharts. |
+| `npx @dediho/vue-kit add sweet-alert` | Diálogos con SweetAlert2. |
+| `npx @dediho/vue-kit add sortable` | Listas ordenables con SortableJS. |
+| `npx @dediho/vue-kit add flatpickr` | Fecha y hora con Flatpickr. |
+
+Consulta los nombres disponibles con `npx @dediho/vue-kit list`.
+
+## Usar en un proyecto Vue existente
+
+Desde la raíz de tu proyecto, donde está `package.json`:
+
+```sh
+npx @dediho/vue-kit init
+npx @dediho/vue-kit add button input-group
+```
+
+`init` crea `vue-kit.json`, copia los estilos base e importa `./assets/vue-kit.css` en la entrada. No agrega el dashboard ni reemplaza tus vistas o rutas. Los estilos base incluyen tipografía, colores y reglas globales; revisa cómo se combinan con los estilos de tu aplicación.
+
+Para instalar dependencias, `init` y `add` usan pnpm si encuentran `pnpm-lock.yaml`, Yarn si encuentran `yarn.lock` y npm en los demás casos.
+
+Los proyectos anteriores de `@dediho/app-ui` pueden usar `add`: el CLI reconoce `app-ui.json` y conserva su configuración y sus archivos de estilos.
+
+## Personalización
+
+Los archivos instalados pertenecen a tu proyecto y puedes editarlos directamente.
+
+| Qué quieres cambiar | Archivo en el proyecto generado |
+| --- | --- |
+| Logo | `public/logo.png` |
+| Nombre, subtítulo y enlaces del menú | `src/layouts/AppDashboardLayout.vue` |
+| Header, tooltips y menú del usuario | `src/components/layout/AppDashboardHeader.vue` |
+| Rutas y títulos de las páginas | `src/router/index.ts` |
+| Contenido del dashboard | `src/views/DashboardView.vue` |
+| Colores y variables de los modos claro y oscuro | `src/assets/vue-kit/theme.css` |
+| Comportamiento del tema | `src/composables/useTheme.ts` |
+| Componentes agregados | `src/components/ui/` |
+| Estilos de los componentes agregados | `src/assets/styles/components/` |
+
+`src/assets/vue-kit.css` es la entrada de estilos base y `src/assets/vue-kit-components.css` reúne los imports de los componentes instalados.
+
+## Referencia de comandos
+
+Ejecuta los comandos con `npx @dediho/vue-kit` seguido de:
+
+| Comando | Qué hace |
+| --- | --- |
+| `create <nombre>` | Crea un dashboard en una carpeta nueva o vacía e instala sus dependencias. |
+| `init` | Prepara un proyecto Vue existente. |
+| `add <nombre...>` | Agrega uno o varios componentes o presets y sus dependencias. |
+| `list` | Muestra los componentes y presets disponibles. |
+| `--help` | Muestra la ayuda del CLI. |
+
+| Opción | Qué hace |
+| --- | --- |
+| `--cwd <ruta>` | Usa otra carpeta como directorio de trabajo. En `create`, el proyecto se crea dentro de ella. |
+| `--skip-install` | Copia los archivos sin ejecutar la instalación de dependencias. |
+| `--overwrite` o `--force` | Permite reemplazar los archivos que copia `init` o `add`. |
+
+Por defecto, `init` y `add` conservan los archivos existentes. Usa `--overwrite` solo si quieres sustituir tus versiones locales.
+
+Si usas `create --skip-install`, ejecuta `npm install` dentro del proyecto antes de iniciarlo. Si usas `init` o `add` con esa opción, instala las dependencias pendientes que indique el CLI.
+
+## Licencia
+
+Distribuido bajo la [licencia MIT](https://github.com/floriban/vue-kit/blob/main/LICENSE).
+
+<!-- npm-readme:end -->
+
+## Desarrollo y contribuciones
+
+Esta sección corresponde al repositorio del catálogo y del CLI. Para usar Vue Kit en tu aplicación, sigue la guía anterior.
+
+### Ejecutar el catálogo localmente
+
+El repositorio usa Node.js `^22.18.0 || >=24.12.0` y `pnpm@12.5.1`. Las versiones de dependencias se guardan en `pnpm-lock.yaml`.
+
+```sh
+git clone https://github.com/floriban/vue-kit.git
+cd vue-kit
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+`pnpm build` comprueba TypeScript y genera `dist/`. Usa `pnpm preview` para revisar esa compilación.
+
+### Probar el CLI local
+
+Desde la raíz del repositorio:
 
 ```sh
 npm run registry:build
 node packages/cli/src/index.js list
-node packages/cli/src/index.js create mi-dashboard
+node packages/cli/src/index.js create mi-dashboard --skip-install
 ```
 
-Dentro de un proyecto Vue existente:
+Para probarlo en un proyecto existente, usa `node packages/cli/src/index.js init --cwd /ruta/al/proyecto` y después `node packages/cli/src/index.js add button --cwd /ruta/al/proyecto`.
+
+### Estructura del repositorio
+
+| Ruta | Contenido |
+| --- | --- |
+| `src/components/ui/` | Componentes reutilizables. |
+| `src/components/docs/` y `src/docs/` | Documentación y ejemplos copiables. |
+| `src/views/` y `src/layouts/` | Páginas del demo y navegación. |
+| `src/assets/styles/` | Tema, estilos del catálogo y de componentes. |
+| `packages/cli/src/` | Implementación de los comandos. |
+| `packages/cli/assets/core/` | Estilos base para proyectos existentes. |
+| `packages/cli/assets/template/` | Plantilla del dashboard. |
+| `packages/cli/scripts/build-assets.mjs` | Generación del registro, sincronización del logo y del README de npm. |
+| `registry/index.json` | Registro generado de componentes y presets. |
+
+Define valores compartidos en `theme.css`, mantén los estilos de cada componente separados de los ejemplos y conserva sus reglas responsive junto a ellos. La documentación de un componente debe incluir ejemplos copiables, propiedades, eventos, slots y notas de accesibilidad. Usa `DocsCodeBlock` para mostrar código como texto.
+
+### Comprobar y empaquetar
 
 ```sh
-node /ruta/vue-kit/packages/cli/src/index.js init
-node /ruta/vue-kit/packages/cli/src/index.js add input-group
-```
-
-El paquete está disponible en [npm](https://www.npmjs.com/package/@dediho/vue-kit). Puedes usarlo directamente:
-
-```sh
-npx @dediho/vue-kit create mi-dashboard
-npx @dediho/vue-kit init
-npx @dediho/vue-kit add input-group
-npx @dediho/vue-kit add sweet-alert
-npx @dediho/vue-kit add sortable
-npx @dediho/vue-kit add flatpickr
-npx @dediho/vue-kit list
-```
-
-`create` genera un dashboard mínimo y funcional. `init` prepara un proyecto Vue
-existente sin reemplazar sus vistas. `add` resuelve dependencias entre componentes,
-instala los paquetes externos necesarios y agrega únicamente sus archivos y estilos.
-
-Antes de publicar una versión:
-
-```sh
+npm run check
 npm test --workspace packages/cli
 npm run cli:pack
 ```
 
-El proyecto y el paquete se distribuyen con [licencia MIT](LICENSE).
+El empaquetado regenera los recursos del CLI. La guía de uso de este README es la fuente común: todo lo anterior al marcador HTML `npm-readme:end` se copia a `packages/cli/README.md` al ejecutar `npm run registry:build`, las pruebas del CLI o el empaquetado. Edita aquí la guía compartida y regenera los recursos.
 
-## Desarrollo
+Estos comandos no publican el paquete en npm.
 
-Node: `^22.18.0 || >=24.12.0`. El gestor declarado es `pnpm@12.5.1`;
-las versiones de dependencias se guardan en `pnpm-lock.yaml`.
+### Despliegue del demo
 
-```sh
-pnpm install --frozen-lockfile
-pnpm dev
-pnpm build
-```
-
-Si las dependencias ya están instaladas y el lanzador local de pnpm falla,
-puedes ejecutar `npm run dev` y `npm run build`. No hace falta reinstalar.
-`build` comprueba TypeScript y genera `dist/`. `pnpm preview` sirve esa compilación.
-
-## Estructura
-
-- `src/components/ui/`: componentes reutilizables.
-- `src/components/docs/`: header, bloques de código y documentación del catálogo.
-- `src/docs/`: ejemplos de uso.
-- `src/views/`: páginas de demostración.
-- `src/layouts/`: estructura general y navegación lateral.
-- `src/assets/main.css`: punto de entrada e importaciones de estilos.
-- `src/assets/styles/theme.css`: colores, fuentes, radios y sombras.
-- `src/assets/styles/base.css`: estilos globales del documento.
-- `src/assets/styles/layout.css`: menú, header y distribución responsive.
-- `src/assets/styles/components/`: CSS de botones, formularios, alertas, tarjetas, tablas, modales, notificaciones, dropdowns, tabs, accordions, badges, avatares, progreso, paginación, tooltips y popovers.
-- `src/assets/styles/docs.css`: presentación de ejemplos y documentación.
-- `src/assets/styles/accessibility.css`: utilidades accesibles y reducción de movimiento.
-
-## Convenciones de estilos
-
-1. Define colores y valores compartidos en `theme.css`. Reutiliza variables con `var(--color-primary)`.
-2. Conserva CSS propio para variantes, estados y selectores de componentes.
-3. Usa utilidades de Tailwind para composiciones sencillas. `@apply` es opcional.
-4. Mantén las reglas responsive junto a los estilos que modifican.
-5. No mezcles estilos exclusivos de ejemplos con los de los componentes UI.
-6. `accessibility.css` se importa al final para que la reducción de movimiento prevalezca.
-
-Los aliases del tema conservan nombres semánticos y apuntan a un valor compartido.
-Las variables locales como `--button-color` seleccionan los colores de cada variante.
-
-## Documentar un componente
-
-Las páginas de componentes e integraciones incluyen documentación de uso:
-- Ejemplos visuales y código desplegable que se puede copiar.
-- Botones: demostración interactiva de carga, deshabilitado y clics.
-- Formularios: campos, selección, validación, mensajes asociados y envío.
-- Alertas: estados, variantes, título opcional, cierre y restauración.
-- Tarjetas: iconos de Lucide, título, subtítulo, toolbar y encabezados personalizados.
-- Tablas: composición dentro de AppCard, filas compactas/alternadas, hover y estado vacío.
-- Modales: tamaños, posición, fondo estático, scroll, confirmación y control accesible del foco.
-- Notificaciones: estados, acciones, duración, seis posiciones y administración de la pila.
-- Dropdowns: alineación, posición automática, selección múltiple y menús de acciones.
-- Tabs: variantes, iconos, badges, orientación vertical y navegación automática por teclado.
-- Accordion: apertura única o múltiple, panel requerido, elementos deshabilitados y variantes.
-- Badges: colores, variantes, tamaños, iconos, puntos y cierre.
-- Avatares: imagen, iniciales, tamaños, formas, presencia y grupos.
-- Progress: indicadores lineales, circulares, animados e indeterminados.
-- Pagination: elipsis, páginas vecinas, extremos y estado deshabilitado.
-- Tooltips: cuatro posiciones, espera, foco, Escape y ajuste automático.
-- Popovers: paneles contextuales con acciones, formularios, foco y posicionamiento.
-- Tabla de propiedades con tipos y valores predeterminados.
-- Eventos nativos, atributos heredados, slots y notas de accesibilidad.
-
-Usa `DocsCodeBlock` para el código; el contenido se muestra como texto, sin ejecutar HTML.
-Los fragmentos cortos presuponen que el componente correspondiente está importado; los ejemplos completos incluyen el import.
-
-## Estado de esta etapa
-
-- CSS organizado y colores centralizados.
-- AppButton, AppAlert, AppCard, AppTable, AppModal, Toast, Dropdown, Tabs, Accordion, Badge, Avatar, Progress, Pagination, Tooltip, Popover y los controles de formulario están documentados con ejemplos copiables, API y pruebas interactivas.
-- Git iniciado con una versión anterior a la reorganización.
-- Las páginas del catálogo incluyen documentación y demostraciones interactivas.
-- Los controles de acciones del header son visuales, sin operaciones conectadas.
-
-Próxima etapa: construir una pantalla funcional que combine los componentes.
-
-No hay backend ni autenticación. Los datos actuales son ejemplos.
-
-## Demo en Cloudflare
-
-Ejecuta `npm run build` y sube **todo el contenido de `dist`**, incluido `_redirects`,
-en **New deployment** del Worker existente `lingering-boat-6e61`.
-Las reglas de `public/_redirects` sirven `index.html` para las rutas del catálogo
-y permiten abrirlas directamente o recargarlas. Al agregar rutas nuevas, actualiza
-este archivo; no uses una regla global que reescriba también JavaScript, CSS e imágenes.
-
-Para desplegar con Wrangler, la configuración `wrangler.jsonc` activa el modo SPA
-también para rutas desconocidas, que Vue mostrará como página no encontrada:
+Para desplegar con la configuración de `wrangler.jsonc`:
 
 ```sh
 npm run build
 npx wrangler deploy
 ```
 
-El archivo `wrangler.jsonc` se utiliza al desplegar con Wrangler; subir solamente
-el `dist` por el panel no aplica esa configuración.
+Si usas el panel de Cloudflare, sube todo el contenido de `dist/`, incluido `_redirects`, al Worker del demo. Las reglas de `public/_redirects` permiten abrir y recargar las rutas del catálogo; actualízalas al agregar rutas nuevas. La configuración de `wrangler.jsonc` solo se aplica al desplegar con Wrangler.

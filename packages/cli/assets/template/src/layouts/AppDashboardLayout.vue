@@ -1,51 +1,50 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { LayoutDashboard, Menu, Moon, PackagePlus, Sun, X } from '@lucide/vue'
+import { ChevronsLeft, LayoutDashboard, PackagePlus, X } from '@lucide/vue'
 import { useRoute } from 'vue-router'
-import { useTheme } from '../composables/useTheme'
+import AppDashboardHeader from '../components/layout/AppDashboardHeader.vue'
 
 const logoUrl = `${import.meta.env.BASE_URL}logo.png`
 
 const route = useRoute()
 const mobileOpen = ref(false)
+const collapsed = ref(true)
 const title = computed(() => String(route.meta.title ?? 'Dashboard'))
-const { theme, toggleTheme } = useTheme()
 watch(() => route.fullPath, () => { mobileOpen.value = false })
 </script>
 
 <template>
-  <div class="app-shell">
+  <div class="app-shell" :class="{ 'app-shell--collapsed': collapsed }">
     <button v-if="mobileOpen" class="app-shell__backdrop" aria-label="Cerrar navegación" @click="mobileOpen = false"></button>
-    <aside class="app-shell__sidebar" :class="{ 'is-open': mobileOpen }">
-      <RouterLink class="app-shell__brand" :to="{ name: 'dashboard' }"><span><img :src="logoUrl" alt="" width="35" height="35" /></span><strong>Vue Kit</strong></RouterLink>
+    <aside id="mobile-navigation-panel" class="app-shell__sidebar" :class="{ 'is-open': mobileOpen }">
+      <div class="app-shell__sidebar-header">
+        <RouterLink class="app-shell__brand" :to="{ name: 'dashboard' }" aria-label="Vue Kit, Dashboard"><span class="app-shell__mark"><img :src="logoUrl" alt="" width="38" height="38" /></span><span class="app-shell__brand-text"><strong>Vue Kit</strong><small>Componentes Vue</small></span></RouterLink>
+        <button class="app-shell__toggle" type="button" :aria-label="collapsed ? 'Fijar menú expandido' : 'Plegar menú'" :title="collapsed ? 'Fijar menú expandido' : 'Plegar menú'" :aria-expanded="!collapsed" aria-controls="main-navigation" @click="collapsed = !collapsed"><ChevronsLeft :size="20" aria-hidden="true" /></button>
+      </div>
       <button class="app-shell__close" type="button" aria-label="Cerrar menú" @click="mobileOpen = false"><X :size="20" /></button>
-      <nav aria-label="Navegación principal">
+      <nav id="main-navigation" aria-label="Navegación principal">
         <RouterLink :to="{ name: 'dashboard' }"><LayoutDashboard :size="19" /><span>Dashboard</span></RouterLink>
       </nav>
       <div class="app-shell__tip"><PackagePlus :size="18" /><p>Agrega componentes con <code>vue-kit add</code>.</p></div>
     </aside>
     <div class="app-shell__page">
-      <header class="app-shell__header">
-        <button class="app-shell__menu" type="button" aria-label="Abrir navegación" @click="mobileOpen = true"><Menu :size="22" /></button>
-        <div><small>Área de trabajo</small><h1>{{ title }}</h1></div>
-        <button class="app-shell__theme" type="button" :aria-label="theme === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro'" @click="toggleTheme"><Sun v-if="theme === 'dark'" :size="20" /><Moon v-else :size="20" /></button>
-      </header>
+<AppDashboardHeader :title="title" :mobile-menu-open="mobileOpen" @open-menu="mobileOpen = true" />
       <main class="app-shell__content"><RouterView /></main>
     </div>
   </div>
 </template>
 
 <style scoped>
-.app-shell { display: grid; grid-template-columns: 250px minmax(0, 1fr); min-height: 100vh; }
-.app-shell__sidebar { position: sticky; top: 0; display: flex; flex-direction: column; height: 100vh; padding: 24px 17px; background: #1e1e2d; color: #a2a3b7; }
-.app-shell__brand { display: flex; align-items: center; gap: 12px; padding: 0 9px 24px; color: white; text-decoration: none; }
-.app-shell__brand > span { display: grid; place-items: center; width: 35px; height: 35px; border-radius: 9px; overflow: hidden; flex-shrink: 0; }
+.app-shell { display: grid; grid-template-columns: 265px minmax(0, 1fr); transition: grid-template-columns 280ms ease; min-height: 100vh; }
+.app-shell__sidebar { position: sticky; z-index: 20; top: 0; display: flex; flex-direction: column; width: 265px; overflow-x: hidden; height: 100vh; padding: 0 0 24px; transition: width 280ms ease, box-shadow 280ms ease; background: #1e1e2d; color: #a2a3b7; }
+.app-shell__brand { display: flex; align-items: center; gap: 12px; min-height: 65px; padding: 0 48px 0 18px; color: white; text-decoration: none; }
+.app-shell__mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: var(--radius-sm); flex-shrink: 0; }
 .app-shell__brand img { display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(1.65); }
-.app-shell__brand strong { font-size: .95rem; font-weight: 600; }
-.app-shell__sidebar nav { display: grid; gap: 5px; }
-.app-shell__sidebar nav a { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 7px; color: #a2a3b7; font-size: .82rem; text-decoration: none; }
-.app-shell__sidebar nav a:hover, .app-shell__sidebar nav a.router-link-active { color: white; background: #29293d; }
-.app-shell__tip { display: flex; gap: 10px; align-items: flex-start; margin-top: auto; padding: 14px; border: 1px solid #34344a; border-radius: 8px; font-size: .7rem; line-height: 1.65; }
+.app-shell__brand strong { display: block; font-size: 1rem; font-weight: 700; }
+.app-shell__sidebar nav { display: grid; gap: 4px; margin-top: 24px; padding: 0 15px; }
+.app-shell__sidebar nav a { display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 9px 12px; border-radius: 7px; color: #a2a3b7; font-size: .86rem; text-decoration: none; }
+.app-shell__sidebar nav a:hover, .app-shell__sidebar nav a.router-link-active { color: white; background: #1b1b28; }
+.app-shell__tip { display: flex; gap: 10px; align-items: flex-start; margin: auto 15px 0; padding: 14px; border: 1px solid #34344a; border-radius: 8px; font-size: .7rem; line-height: 1.65; }
 .app-shell__tip p { margin: 0; }.app-shell__tip code { color: white; }
 .app-shell__page { min-width: 0; }
 .app-shell__header { display: flex; align-items: center; gap: 14px; min-height: 82px; padding: 15px clamp(20px, 4vw, 46px); border-bottom: 1px solid var(--color-border); background: var(--color-surface); }
@@ -54,11 +53,32 @@ watch(() => route.fullPath, () => { mobileOpen.value = false })
 .app-shell__theme { margin-left: auto; }.app-shell__menu, .app-shell__close { display: none; }
 .app-shell__content { padding: clamp(22px, 4vw, 46px); }
 .app-shell__backdrop { display: none; }
-@media (max-width: 800px) {
+@media (min-width: 992px) {
+  .app-shell--collapsed { grid-template-columns: 74px minmax(0, 1fr); }
+  .app-shell--collapsed .app-shell__sidebar { width: 74px; }
+  .app-shell--collapsed .app-shell__toggle svg { transform: rotate(180deg); }
+  .app-shell--collapsed .app-shell__sidebar:is(:hover, :focus-within) { width: 265px; box-shadow: 12px 0 30px rgba(24, 28, 50, .15); }
+  .app-shell--collapsed .app-shell__sidebar:not(:hover):not(:focus-within) :is(.app-shell__brand-text, nav a span, .app-shell__tip) { opacity: 0; pointer-events: none; }
+  .app-shell--collapsed .app-shell__sidebar:not(:hover):not(:focus-within) .app-shell__mark { visibility: hidden; }
+  .app-shell--collapsed .app-shell__sidebar:not(:hover):not(:focus-within) .app-shell__toggle { right: 21px; }
+}
+@media (max-width: 991.98px) {
+  .app-shell__page { padding-top: 55px; }
   .app-shell { grid-template-columns: 1fr; }
   .app-shell__sidebar { position: fixed; z-index: 20; inset: 0 auto 0 0; width: min(280px, 85vw); transform: translateX(-100%); transition: transform .2s; }
   .app-shell__sidebar.is-open { transform: translateX(0); }
   .app-shell__menu, .app-shell__close { display: grid; }.app-shell__close { position: absolute; top: 20px; right: 16px; background: #29293d; color: white; }
   .app-shell__backdrop { position: fixed; z-index: 19; inset: 0; display: block; width: 100%; border: 0; background: rgba(15, 18, 30, .58); }
 }
+.app-shell__sidebar-header { position: relative; flex: 0 0 auto; min-height: 65px; background: #1a1a27; }
+.app-shell__brand-text, .app-shell__sidebar nav a span { white-space: nowrap; }
+.app-shell__brand small { display: block; margin-top: 2px; color: #a2a3b7; font-size: .72rem; }
+.app-shell__toggle { position: absolute; right: 10px; top: 17px; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: var(--radius-sm); color: #a2a3b7; background: #2d2d42; cursor: pointer; }
+.app-shell__toggle:hover { color: var(--color-primary); }
+.app-shell__toggle:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.app-shell__toggle svg { transition: transform 280ms ease; }
+.app-shell__sidebar nav a svg { flex-shrink: 0; color: #8d8fab; }
+.app-shell__sidebar nav a.router-link-active svg { color: var(--color-primary); }
+.app-shell__tip { flex-shrink: 0; width: 235px; }
+@media (max-width: 991.98px) { .app-shell__toggle { display: none; } }
 </style>

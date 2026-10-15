@@ -1,39 +1,150 @@
-# Vue Kit CLI
+# Vue Kit
 
-Inicializa Vue Kit en un proyecto Vue existente:
+Crea un dashboard con Vue 3 y TypeScript, o agrega componentes a un proyecto Vue existente. El CLI copia los archivos a tu proyecto para que puedas adaptarlos.
 
-```bash
-npx @dediho/vue-kit init
-```
+[Ver demo](https://lingering-boat-6e61.floriban.workers.dev/dashboard) · [Repositorio en GitHub](https://github.com/floriban/vue-kit) · [Paquete en npm](https://www.npmjs.com/package/@dediho/vue-kit)
 
-Crea un dashboard nuevo:
+## Requisitos
 
-```bash
+- Node.js `^22.18.0 || >=24.12.0` para crear y ejecutar la plantilla.
+- npm y npx disponibles en la terminal.
+- Para integrar componentes en un proyecto existente: Vue 3 y una entrada `src/main.ts` o `src/main.js`.
+
+El CLI por sí solo admite Node.js 20 o superior; la plantilla utiliza Vite y requiere las versiones indicadas arriba.
+
+## Inicio rápido: crear un dashboard
+
+Ejecuta en la carpeta donde quieres crear tu proyecto:
+
+```sh
 npx @dediho/vue-kit create mi-dashboard
+cd mi-dashboard
+npm run dev
 ```
 
-Instala componentes y presets bajo demanda:
+Abre la dirección que muestre Vite en la terminal. El comando crea la carpeta e instala las dependencias con npm; no necesitas ejecutar `init` después.
 
-```bash
-npx @dediho/vue-kit add input-group
+La plantilla incluye navegación lateral plegable, modo claro y oscuro, una vista de dashboard y una página para rutas no encontradas. Es un punto de partida para tu aplicación; el demo muestra además el catálogo completo de componentes e integraciones. Los datos son de ejemplo y no incluye backend ni autenticación.
+
+Para generar y revisar la compilación de producción, dentro del proyecto:
+
+```sh
+npm run build
+npm run preview
+```
+
+## Agregar y usar componentes
+
+Dentro de tu dashboard, instala los componentes que necesites:
+
+```sh
+npx @dediho/vue-kit add button
 npx @dediho/vue-kit add table pagination
+```
+
+El CLI copia los componentes a `src/components/ui/`, agrega sus estilos e instala las dependencias necesarias. Los componentes se importan en la vista donde los vas a usar; no se registran globalmente.
+
+Por ejemplo, después de agregar `button`, puedes usarlo en una vista:
+
+```vue
+<script setup lang="ts">
+import AppButton from '../components/ui/AppButton.vue'
+
+function guardar() {
+  console.log('Guardar cambios')
+}
+</script>
+
+<template>
+  <AppButton @click="guardar">Guardar cambios</AppButton>
+</template>
+```
+
+La ruta del import corresponde a una vista dentro de `src/views/`. Consulta el [demo](https://lingering-boat-6e61.floriban.workers.dev/dashboard) para ver ejemplos, propiedades y eventos.
+
+### Presets e integraciones
+
+Un preset instala un conjunto de componentes relacionados:
+
+| Preset | Incluye |
+| --- | --- |
+| `forms` | Campos, controles de formulario y grupos de entradas y botones. |
+| `data-table` | Tabla, paginación, estados y spinner. |
+| `feedback` | Alertas, modales, notificaciones y estados. |
+| `flatpickr` | Selectores de fecha y hora. |
+
+```sh
 npx @dediho/vue-kit add forms
+npx @dediho/vue-kit add data-table
 ```
 
-Agrega integraciones mediante wrappers de Vue Kit:
+También puedes agregar integraciones individualmente:
 
-```bash
-npx @dediho/vue-kit add sweet-alert
-npx @dediho/vue-kit add sortable
-npx @dediho/vue-kit add editor
-npx @dediho/vue-kit add chart
-npx @dediho/vue-kit add flatpickr
+| Comando | Integración |
+| --- | --- |
+| `npx @dediho/vue-kit add editor` | Editor de texto con Tiptap. |
+| `npx @dediho/vue-kit add chart` | Gráficos con ECharts. |
+| `npx @dediho/vue-kit add sweet-alert` | Diálogos con SweetAlert2. |
+| `npx @dediho/vue-kit add sortable` | Listas ordenables con SortableJS. |
+| `npx @dediho/vue-kit add flatpickr` | Fecha y hora con Flatpickr. |
+
+Consulta los nombres disponibles con `npx @dediho/vue-kit list`.
+
+## Usar en un proyecto Vue existente
+
+Desde la raíz de tu proyecto, donde está `package.json`:
+
+```sh
+npx @dediho/vue-kit init
+npx @dediho/vue-kit add button input-group
 ```
 
-Usa `npx @dediho/vue-kit list` para consultar el registro. Antes de publicar el paquete ejecuta `npm run registry:build` desde la raíz.
+`init` crea `vue-kit.json`, copia los estilos base e importa `./assets/vue-kit.css` en la entrada. No agrega el dashboard ni reemplaza tus vistas o rutas. Los estilos base incluyen tipografía, colores y reglas globales; revisa cómo se combinan con los estilos de tu aplicación.
 
-## Proyectos anteriores
+Para instalar dependencias, `init` y `add` usan pnpm si encuentran `pnpm-lock.yaml`, Yarn si encuentran `yarn.lock` y npm en los demás casos.
 
-Vue Kit reemplaza a `@dediho/app-ui`. El comando `vue-kit add` también reconoce
-`app-ui.json` y conserva los estilos de los proyectos creados con el paquete anterior.
-Los proyectos nuevos usan `vue-kit.json` y archivos de estilos `vue-kit`.
+Los proyectos anteriores de `@dediho/app-ui` pueden usar `add`: el CLI reconoce `app-ui.json` y conserva su configuración y sus archivos de estilos.
+
+## Personalización
+
+Los archivos instalados pertenecen a tu proyecto y puedes editarlos directamente.
+
+| Qué quieres cambiar | Archivo en el proyecto generado |
+| --- | --- |
+| Logo | `public/logo.png` |
+| Nombre, subtítulo y enlaces del menú | `src/layouts/AppDashboardLayout.vue` |
+| Header, tooltips y menú del usuario | `src/components/layout/AppDashboardHeader.vue` |
+| Rutas y títulos de las páginas | `src/router/index.ts` |
+| Contenido del dashboard | `src/views/DashboardView.vue` |
+| Colores y variables de los modos claro y oscuro | `src/assets/vue-kit/theme.css` |
+| Comportamiento del tema | `src/composables/useTheme.ts` |
+| Componentes agregados | `src/components/ui/` |
+| Estilos de los componentes agregados | `src/assets/styles/components/` |
+
+`src/assets/vue-kit.css` es la entrada de estilos base y `src/assets/vue-kit-components.css` reúne los imports de los componentes instalados.
+
+## Referencia de comandos
+
+Ejecuta los comandos con `npx @dediho/vue-kit` seguido de:
+
+| Comando | Qué hace |
+| --- | --- |
+| `create <nombre>` | Crea un dashboard en una carpeta nueva o vacía e instala sus dependencias. |
+| `init` | Prepara un proyecto Vue existente. |
+| `add <nombre...>` | Agrega uno o varios componentes o presets y sus dependencias. |
+| `list` | Muestra los componentes y presets disponibles. |
+| `--help` | Muestra la ayuda del CLI. |
+
+| Opción | Qué hace |
+| --- | --- |
+| `--cwd <ruta>` | Usa otra carpeta como directorio de trabajo. En `create`, el proyecto se crea dentro de ella. |
+| `--skip-install` | Copia los archivos sin ejecutar la instalación de dependencias. |
+| `--overwrite` o `--force` | Permite reemplazar los archivos que copia `init` o `add`. |
+
+Por defecto, `init` y `add` conservan los archivos existentes. Usa `--overwrite` solo si quieres sustituir tus versiones locales.
+
+Si usas `create --skip-install`, ejecuta `npm install` dentro del proyecto antes de iniciarlo. Si usas `init` o `add` con esa opción, instala las dependencias pendientes que indique el CLI.
+
+## Licencia
+
+Distribuido bajo la [licencia MIT](https://github.com/floriban/vue-kit/blob/main/LICENSE).

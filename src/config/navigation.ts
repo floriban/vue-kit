@@ -52,6 +52,7 @@ export const navigationGroups: NavigationGroup[] = [
       { name: "buttons", label: "Botones" },
       { name: "cards", label: "Tarjetas" },
       { name: "badges", label: "Badges" },
+      { name: "notification-badges", label: "Indicadores" },
       { name: "avatars", label: "Avatares" },
       { name: "timeline", label: "Timeline" },
     ],

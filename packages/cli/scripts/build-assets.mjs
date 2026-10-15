@@ -11,6 +11,16 @@ const availableVersions = { ...packageJson.dependencies, ...packageJson.devDepen
 
 await cp(path.join(cliRoot, 'assets/core'), path.join(cliRoot, 'assets/template'), { recursive: true, force: true })
 
+// Keep the starter brand identical to the demo on every package build.
+await mkdir(path.join(cliRoot, 'assets/template/public'), { recursive: true })
+await cp(path.join(repoRoot, 'public/logo.png'), path.join(cliRoot, 'assets/template/public/logo.png'))
+
+// The repository README owns the shared user guide for GitHub and npm.
+const repositoryReadme = await readFile(path.join(repoRoot, 'README.md'), 'utf8')
+const readmeMarker = '<!-- npm-readme:end -->'
+if (!repositoryReadme.includes(readmeMarker)) throw new Error('Missing npm README boundary in README.md')
+await writeFile(path.join(cliRoot, 'README.md'), repositoryReadme.split(readmeMarker)[0].trimEnd() + '\n')
+
 const styleMap = {
   accordion: 'accordions.css',
   'advanced-select': 'advanced-forms.css',
@@ -19,6 +29,7 @@ const styleMap = {
   avatar: 'avatars.css',
   'avatar-group': 'avatars.css',
   badge: 'badges.css',
+  'notification-badge': 'notification-badges.css',
   breadcrumbs: 'navigation-feedback.css',
   button: 'buttons.css',
   'button-group': 'buttons.css',
@@ -163,6 +174,40 @@ for (const component of components) {
     await cp(source, destination)
   }
 }
+
+// Ship the same header and supporting UI as the demo, with dashboard-only links by default.
+const templateRoot = path.join(cliRoot, 'assets/template')
+await mkdir(path.join(templateRoot, 'src/components/layout'), { recursive: true })
+await cp(path.join(repoRoot, 'src/components/docs/DocsHeader.vue'), path.join(templateRoot, 'src/components/layout/AppDashboardHeader.vue'))
+const headerItems = ['notification-badge', 'tooltip', 'dropdown', 'dropdown-item', 'dropdown-separator', 'drawer']
+const headerStyles = new Set(['buttons.css'])
+for (const name of headerItems) {
+  const item = components.find(component => component.name === name)
+  if (!item) throw new Error('Missing header component: ' + name)
+  for (const file of item.files) {
+    const destination = path.join(templateRoot, file.target)
+    await mkdir(path.dirname(destination), { recursive: true })
+    await cp(path.join(repoRoot, file.source), destination)
+  }
+  item.styles.forEach(style => headerStyles.add(style))
+}
+for (const style of headerStyles) {
+  const destination = path.join(templateRoot, 'src/assets/styles/components', style)
+  await mkdir(path.dirname(destination), { recursive: true })
+  await cp(path.join(repoRoot, 'src/assets/styles/components', style), destination)
+}
+const demoLayout = await readFile(path.join(repoRoot, 'src/assets/styles/layout.css'), 'utf8')
+const brandMark = demoLayout.slice(demoLayout.indexOf('.brand__mark {'), demoLayout.indexOf('.brand strong,'))
+const desktopHeader = demoLayout.slice(demoLayout.indexOf('.dashboard-header {'), demoLayout.indexOf('/* Grouped component navigation */'))
+const mobileHeader = demoLayout.slice(demoLayout.indexOf('/* Mobile layout follows'))
+await writeFile(path.join(templateRoot, 'src/assets/dashboard-header.css'), brandMark + desktopHeader + mobileHeader)
+await writeFile(path.join(templateRoot, 'src/assets/vue-kit-components.css'),
+  [...headerStyles].map(style => '@import "./styles/components/' + style + '";').join('\n') + '\n@import "./dashboard-header.css";\n')
+const templateConfigPath = path.join(templateRoot, 'vue-kit.json')
+const templateConfig = JSON.parse(await readFile(templateConfigPath, 'utf8'))
+templateConfig.version = JSON.parse(await readFile(path.join(cliRoot, 'package.json'), 'utf8')).version
+for (const name of headerItems) templateConfig.installed[name] = JSON.parse(await readFile(path.join(cliRoot, 'package.json'), 'utf8')).version
+await writeFile(templateConfigPath, JSON.stringify(templateConfig, null, 2) + '\n')
 
 const registry = {
   schemaVersion: 1,
