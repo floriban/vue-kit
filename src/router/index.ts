@@ -15,6 +15,8 @@ const router = createRouter({
       component: DocsLayout,
       redirect: '/dashboard',
       children: [
+        { path: 'icons/lucide', name: 'icons-lucide', component: () => import('../views/LucideIconsView.vue') },
+        { path: 'icons/tabler', name: 'icons-tabler', component: () => import('../views/TablerIconsView.vue') },
         { path: 'http-pages', name: 'http-pages', component: () => import('../views/HttpPagesView.vue') },
         ...httpPages.map((page) => ({
           path: 'http/' + page.code,

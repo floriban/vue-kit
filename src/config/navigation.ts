@@ -10,6 +10,7 @@ import {
   PanelsTopLeft,
   Plug,
   Shapes,
+  Smile,
 } from "@lucide/vue";
 
 export interface NavigationItem {
@@ -32,6 +33,16 @@ export const dashboardItem = {
 };
 
 export const navigationGroups: NavigationGroup[] = [
+  {
+    id: "icons",
+    label: "Iconos",
+    description: "Selección de iconos para tus interfaces.",
+    icon: Smile,
+    items: [
+      { name: "icons-lucide", label: "Lucide" },
+      { name: "icons-tabler", label: "Tabler Icons" },
+    ],
+  },
   {
     id: "utilities",
     label: "Utilidades",
