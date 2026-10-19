@@ -23,6 +23,11 @@ test('create genera un dashboard mínimo sin instalar paquetes', async () => {
     assert.equal(existsSync(path.join(project, 'src/layouts/AppDashboardLayout.vue')), true)
     assert.equal(existsSync(path.join(project, 'src/assets/vue-kit/theme.css')), true)
     assert.equal(JSON.parse(await readFile(path.join(project, 'package.json'), 'utf8')).name, 'demo')
+    const projectPackage = JSON.parse(await readFile(path.join(project, 'package.json'), 'utf8'))
+    assert.ok(projectPackage.devDependencies.tailwindcss)
+    assert.ok(projectPackage.devDependencies['@tailwindcss/vite'])
+    assert.match(await readFile(path.join(project, 'vite.config.ts'), 'utf8'), /tailwindcss\(\)/)
+    assert.match(await readFile(path.join(project, 'src/assets/vue-kit.css'), 'utf8'), /@import "tailwindcss"/)
     assert.equal(
       await readFile(path.join(project, 'src/components/layout/AppDashboardHeader.vue'), 'utf8'),
       await readFile(new URL('../../../src/components/docs/DocsHeader.vue', import.meta.url), 'utf8'),
@@ -36,7 +41,7 @@ test('create genera un dashboard mínimo sin instalar paquetes', async () => {
     const demoTheme = await readFile(new URL('../../../src/assets/styles/theme.css', import.meta.url), 'utf8')
     assert.equal(
       await readFile(path.join(project, 'src/assets/vue-kit/theme.css'), 'utf8'),
-      demoTheme.replace('@theme {', ':root {'),
+      demoTheme,
       'La plantilla debe conservar la paleta y los ajustes de contraste del demo',
     )
     const demoLogo = await readFile(new URL('../../../public/logo.png', import.meta.url))

@@ -15,6 +15,11 @@ await writeFile(path.join(cliRoot, 'assets/core/src/assets/vue-kit/theme.css'), 
 
 await cp(path.join(cliRoot, 'assets/core'), path.join(cliRoot, 'assets/template'), { recursive: true, force: true })
 
+// New dashboards ship Tailwind; core files used by init stay compatible with plain CSS projects.
+const templateCss = path.join(cliRoot, 'assets/template/src/assets/vue-kit.css')
+await writeFile(templateCss, '@import "tailwindcss";\n' + await readFile(templateCss, 'utf8'))
+await writeFile(path.join(cliRoot, 'assets/template/src/assets/vue-kit/theme.css'), sharedTheme)
+
 // Keep the starter brand identical to the demo on every package build.
 await mkdir(path.join(cliRoot, 'assets/template/public'), { recursive: true })
 await cp(path.join(repoRoot, 'public/logo.png'), path.join(cliRoot, 'assets/template/public/logo.png'))

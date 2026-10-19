@@ -7,7 +7,7 @@
 .app-drawer--top { inset: 0 0 auto; width: 100vw; height: min(var(--drawer-size), 85dvh); }
 .app-drawer--bottom { inset: auto 0 0; width: 100vw; height: min(var(--drawer-size), 85dvh); }
 .app-drawer__header { display: flex; justify-content: space-between; gap: 16px; padding: 24px; border-bottom: 1px solid var(--color-border); }
-.app-drawer__header h2 { font-size: 1.1rem; font-weight: 600; }.app-drawer__header p { font-size: .8rem; color: var(--color-muted); margin-top: 6px; }
+.app-drawer__header h2 { margin: 0; font-size: 1.1rem; font-weight: 600; line-height: 1.5; }.app-drawer__header p { margin: 6px 0 0; font-size: .8rem; line-height: 1.5; color: var(--color-muted); }
 .app-drawer__body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 24px; }
 .app-drawer__footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; padding: 20px 24px; border-top: 1px solid var(--color-border); }
 .grid-demo-block { min-height: 100px; display: grid; place-items: center; padding: 16px; border: 1px dashed var(--color-border); border-radius: var(--radius-md); background: var(--color-light); font-size: .8rem; color: var(--color-muted); }

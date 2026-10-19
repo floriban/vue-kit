@@ -24,6 +24,8 @@ npm run dev
 
 Abre la dirección que muestre Vite en la terminal. El comando crea la carpeta e instala las dependencias con npm; no necesitas ejecutar `init` después.
 
+Los nuevos dashboards incluyen Tailwind CSS 4 configurado desde el inicio, tanto en desarrollo como en la compilación de producción. Puedes usar sus utilidades, variantes responsive y colores del kit, por ejemplo `flex gap-4 p-6 md:grid-cols-3 bg-primary`.
+
 La plantilla incluye navegación lateral plegable, modo claro y oscuro, una vista de dashboard y una página para rutas no encontradas. Es un punto de partida para tu aplicación; el demo muestra además el catálogo completo de componentes e integraciones. Los datos son de ejemplo y no incluye backend ni autenticación.
 
 Para generar y revisar la compilación de producción, dentro del proyecto:
