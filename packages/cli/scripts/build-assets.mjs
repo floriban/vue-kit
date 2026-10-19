@@ -9,6 +9,10 @@ const outputRoot = path.join(cliRoot, 'assets/registry')
 const packageJson = JSON.parse(await readFile(path.join(repoRoot, 'package.json'), 'utf8'))
 const availableVersions = { ...packageJson.dependencies, ...packageJson.devDependencies }
 
+// Keep installed projects on the demo's palette, including dark component overrides.
+const sharedTheme = await readFile(path.join(repoRoot, 'src/assets/styles/theme.css'), 'utf8')
+await writeFile(path.join(cliRoot, 'assets/core/src/assets/vue-kit/theme.css'), sharedTheme.replace('@theme {', ':root {'))
+
 await cp(path.join(cliRoot, 'assets/core'), path.join(cliRoot, 'assets/template'), { recursive: true, force: true })
 
 // Keep the starter brand identical to the demo on every package build.
@@ -197,10 +201,12 @@ for (const style of headerStyles) {
   await cp(path.join(repoRoot, 'src/assets/styles/components', style), destination)
 }
 const demoLayout = await readFile(path.join(repoRoot, 'src/assets/styles/layout.css'), 'utf8')
+const contentSpacing = demoLayout.match(/\.docs-content\s*\{[^}]*\}/)?.[0]
+if (!contentSpacing) throw new Error('Missing demo content spacing')
 const brandMark = demoLayout.slice(demoLayout.indexOf('.brand__mark {'), demoLayout.indexOf('.brand strong,'))
 const desktopHeader = demoLayout.slice(demoLayout.indexOf('.dashboard-header {'), demoLayout.indexOf('/* Grouped component navigation */'))
 const mobileHeader = demoLayout.slice(demoLayout.indexOf('/* Mobile layout follows'))
-await writeFile(path.join(templateRoot, 'src/assets/dashboard-header.css'), brandMark + desktopHeader + mobileHeader)
+await writeFile(path.join(templateRoot, 'src/assets/dashboard-header.css'), contentSpacing + '\n' + brandMark + desktopHeader + mobileHeader)
 await writeFile(path.join(templateRoot, 'src/assets/vue-kit-components.css'),
   [...headerStyles].map(style => '@import "./styles/components/' + style + '";').join('\n') + '\n@import "./dashboard-header.css";\n')
 const templateConfigPath = path.join(templateRoot, 'vue-kit.json')

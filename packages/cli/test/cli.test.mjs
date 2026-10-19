@@ -33,6 +33,12 @@ test('create genera un dashboard mínimo sin instalar paquetes', async () => {
     assert.equal(existsSync(path.join(project, 'src/composables/modalScrollLock.ts')), true)
     const headerStyles = await readFile(path.join(project, 'src/assets/dashboard-header.css'), 'utf8')
     assert.match(headerStyles, /dashboard-user-menu \.app-dropdown__chevron\s*\{\s*display: none/)
+    const demoTheme = await readFile(new URL('../../../src/assets/styles/theme.css', import.meta.url), 'utf8')
+    assert.equal(
+      await readFile(path.join(project, 'src/assets/vue-kit/theme.css'), 'utf8'),
+      demoTheme.replace('@theme {', ':root {'),
+      'La plantilla debe conservar la paleta y los ajustes de contraste del demo',
+    )
     const demoLogo = await readFile(new URL('../../../public/logo.png', import.meta.url))
     assert.deepEqual(await readFile(path.join(project, 'public/logo.png')), demoLogo)
   } finally {

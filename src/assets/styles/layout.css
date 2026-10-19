@@ -824,6 +824,7 @@
   }
   .dashboard-header--tools-open .dashboard-topbar__tools {
     display: flex;
+    justify-content: flex-end;
     flex-wrap: wrap;
     width: auto;
     gap: 6px;
@@ -835,6 +836,9 @@
   }
   .dashboard-user__greeting {
     display: none;
+  }
+  .dashboard-header--tools-open .dashboard-user {
+    margin-left: 0;
   }
   .dashboard-subheader {
     padding: 18px 16px;

@@ -90,8 +90,8 @@ onBeforeUnmount(() => {
           <AppTooltip class="dashboard-tool-tooltip" text="Ver notificaciones" :label="'Notificaciones: ' + unreadCount + ' sin leer'" placement="bottom" trigger-variant="ghost" trigger-color="primary" icon-only @click="notificationsOpen = true"><Bell :size="21" aria-hidden="true" /></AppTooltip>
         </AppNotificationBadge>
         <AppTooltip class="dashboard-tool-tooltip" text="Aplicaciones" label="Aplicaciones" placement="bottom" trigger-variant="ghost" trigger-color="primary" icon-only><LayoutGrid :size="21" aria-hidden="true" /></AppTooltip>
-        <AppDropdown v-if="sessionActive" v-model="userMenuOpen" class="dashboard-user-menu" label="Menú de usuario de Deddy" menu-label="Mi cuenta" align="end" trigger-variant="ghost">
-          <template #trigger><span class="dashboard-user"><span class="dashboard-user__greeting">Hola, <strong>Deddy</strong></span><span class="dashboard-user__avatar" aria-hidden="true">D</span></span></template>
+        <AppDropdown v-if="sessionActive" v-model="userMenuOpen" class="dashboard-user-menu" label="Menú de Usuario" menu-label="Mi cuenta" align="end" trigger-variant="ghost">
+          <template #trigger><span class="dashboard-user"><span class="dashboard-user__greeting">Hola, <strong>Usuario</strong></span><span class="dashboard-user__avatar" aria-hidden="true">U</span></span></template>
           <AppDropdownItem :icon="UserRound" @select="openAccountPanel('Mi perfil')">Mi perfil</AppDropdownItem>
           <AppDropdownItem :icon="ClipboardList" @select="openAccountPanel('Tareas')">Tareas</AppDropdownItem>
           <AppDropdownItem :icon="Mail" @select="openAccountPanel('Correo')">Correo</AppDropdownItem>
@@ -120,7 +120,7 @@ onBeforeUnmount(() => {
     </div>
   </header>
   <AppDrawer :model-value="accountPanel !== null" :title="accountPanel ?? 'Mi cuenta'" description="Cuenta de demostración de Vue Kit. Estos datos son ejemplos locales." @update:model-value="value => { if (!value) accountPanel = null }">
-    <template v-if="accountPanel === 'Mi perfil'"><h3>Deddy</h3><p>Usuario de demostración</p><p>Personaliza este panel con los datos de tu cuenta.</p></template>
+    <template v-if="accountPanel === 'Mi perfil'"><h3>Usuario</h3><p>Usuario de demostración</p><p>Personaliza este panel con los datos de tu cuenta.</p></template>
     <template v-else-if="accountPanel === 'Tareas'"><h3>Mis tareas</h3><ul><li>Personalizar el dashboard</li><li>Revisar los componentes disponibles</li><li>Conectar los datos de la aplicación</li></ul></template>
     <template v-else-if="accountPanel === 'Correo'"><h3>Bandeja de entrada</h3><p>No hay un servicio de correo conectado.</p><p>Conecta aquí la bandeja de mensajes de tu aplicación.</p></template>
     <template v-else-if="accountPanel === 'Configuración'"><h3>Apariencia</h3><button type="button" class="dashboard-action" @click="toggleTheme">{{ theme === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro' }}</button></template>

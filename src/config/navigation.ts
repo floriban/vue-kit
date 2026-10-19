@@ -34,16 +34,6 @@ export const dashboardItem = {
 
 export const navigationGroups: NavigationGroup[] = [
   {
-    id: "icons",
-    label: "Iconos",
-    description: "Selección de iconos para tus interfaces.",
-    icon: Smile,
-    items: [
-      { name: "icons-lucide", label: "Lucide" },
-      { name: "icons-tabler", label: "Tabler Icons" },
-    ],
-  },
-  {
     id: "utilities",
     label: "Utilidades",
     description: "Distribución y estilos compartidos.",
@@ -106,20 +96,6 @@ export const navigationGroups: NavigationGroup[] = [
     ],
   },
   {
-    id: "integrations",
-    label: "Integraciones",
-    description: "Componentes respaldados por librerías especializadas.",
-    icon: Plug,
-    items: [
-      { name: "sweetalert2", label: "SweetAlert2" },
-      { name: "editor", label: "Editor de texto" },
-      { name: "sortable", label: "SortableJS" },
-      { name: "datepicker", label: "Datepicker" },
-      { name: "timepicker", label: "Timepicker" },
-      { name: "charts", label: "ECharts" },
-    ],
-  },
-  {
     id: "http-pages",
     label: "Páginas HTTP",
     description: "Situaciones de acceso, conexión y disponibilidad.",
@@ -144,6 +120,30 @@ export const navigationGroups: NavigationGroup[] = [
       { name: "skeleton", label: "Skeleton" },
       { name: "tooltips", label: "Tooltips" },
       { name: "popovers", label: "Popovers" },
+    ],
+  },
+  {
+    id: "icons",
+    label: "Iconos",
+    description: "Selección de iconos para tus interfaces.",
+    icon: Smile,
+    items: [
+      { name: "icons-lucide", label: "Lucide" },
+      { name: "icons-tabler", label: "Tabler Icons" },
+    ],
+  },
+  {
+    id: "integrations",
+    label: "Integraciones",
+    description: "Componentes respaldados por librerías especializadas.",
+    icon: Plug,
+    items: [
+      { name: "sweetalert2", label: "SweetAlert2" },
+      { name: "editor", label: "Editor de texto" },
+      { name: "sortable", label: "SortableJS" },
+      { name: "datepicker", label: "Datepicker" },
+      { name: "timepicker", label: "Timepicker" },
+      { name: "charts", label: "ECharts" },
     ],
   },
 ];

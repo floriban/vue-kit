@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.2.2",
   "typescript": true,
   "paths": {
     "components": "src/components/ui",
@@ -7,11 +7,11 @@
     "styles": "src/assets/styles/components"
   },
   "installed": {
-    "notification-badge": "0.2.0",
-    "tooltip": "0.2.0",
-    "dropdown": "0.2.0",
-    "dropdown-item": "0.2.0",
-    "dropdown-separator": "0.2.0",
-    "drawer": "0.2.0"
+    "notification-badge": "0.2.2",
+    "tooltip": "0.2.2",
+    "dropdown": "0.2.2",
+    "dropdown-item": "0.2.2",
+    "dropdown-separator": "0.2.2",
+    "drawer": "0.2.2"
   }
 }
