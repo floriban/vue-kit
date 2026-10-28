@@ -444,6 +444,27 @@
       "externalStyles": []
     },
     {
+      "name": "image-viewer",
+      "type": "component",
+      "description": "Instala AppImageViewer.",
+      "files": [
+        {
+          "source": "src/components/ui/AppImageViewer.vue",
+          "target": "src/components/ui/AppImageViewer.vue"
+        }
+      ],
+      "registryDependencies": [
+        "modal"
+      ],
+      "npmDependencies": {
+        "@lucide/vue": "^1.42.0"
+      },
+      "styles": [
+        "image-viewer.css"
+      ],
+      "externalStyles": []
+    },
+    {
       "name": "input",
       "type": "component",
       "description": "Instala AppInput.",
@@ -613,6 +634,27 @@
       "externalStyles": []
     },
     {
+      "name": "range",
+      "type": "component",
+      "description": "Instala AppRange.",
+      "files": [
+        {
+          "source": "src/components/ui/AppRange.vue",
+          "target": "src/components/ui/AppRange.vue"
+        },
+        {
+          "source": "src/composables/rangeValues.ts",
+          "target": "src/composables/rangeValues.ts"
+        }
+      ],
+      "registryDependencies": [],
+      "npmDependencies": {},
+      "styles": [
+        "ranges.css"
+      ],
+      "externalStyles": []
+    },
+    {
       "name": "select",
       "type": "component",
       "description": "Instala AppSelect.",
@@ -643,6 +685,27 @@
       "npmDependencies": {},
       "styles": [
         "states.css"
+      ],
+      "externalStyles": []
+    },
+    {
+      "name": "slider",
+      "type": "component",
+      "description": "Instala AppSlider.",
+      "files": [
+        {
+          "source": "src/components/ui/AppSlider.vue",
+          "target": "src/components/ui/AppSlider.vue"
+        },
+        {
+          "source": "src/composables/rangeValues.ts",
+          "target": "src/composables/rangeValues.ts"
+        }
+      ],
+      "registryDependencies": [],
+      "npmDependencies": {},
+      "styles": [
+        "ranges.css"
       ],
       "externalStyles": []
     },

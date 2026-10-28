@@ -14,6 +14,7 @@ const sharedTheme = await readFile(path.join(repoRoot, 'src/assets/styles/theme.
 await writeFile(path.join(cliRoot, 'assets/core/src/assets/vue-kit/theme.css'), sharedTheme.replace('@theme {', ':root {'))
 
 await cp(path.join(cliRoot, 'assets/core'), path.join(cliRoot, 'assets/template'), { recursive: true, force: true })
+await cp(path.join(repoRoot, '.gitignore'), path.join(cliRoot, 'assets/template/gitignore'))
 
 // New dashboards ship Tailwind; core files used by init stay compatible with plain CSS projects.
 const templateCss = path.join(cliRoot, 'assets/template/src/assets/vue-kit.css')
@@ -54,6 +55,9 @@ const styleMap = {
   field: 'forms.css',
   'file-upload': 'file-upload.css',
   input: 'forms.css',
+  'image-viewer': 'image-viewer.css',
+  range: 'ranges.css',
+  slider: 'ranges.css',
   'input-group': 'input-groups.css',
   'input-mask': 'advanced-forms.css',
   modal: 'modals.css',

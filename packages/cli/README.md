@@ -26,6 +26,8 @@ Abre la dirección que muestre Vite en la terminal. El comando crea la carpeta e
 
 Los nuevos dashboards incluyen Tailwind CSS 4 configurado desde el inicio, tanto en desarrollo como en la compilación de producción. Puedes usar sus utilidades, variantes responsive y colores del kit, por ejemplo `flex gap-4 p-6 md:grid-cols-3 bg-primary`.
 
+También incluyen un `.gitignore` que excluye dependencias, compilaciones, archivos temporales y variables de entorno locales. Los archivos de ejemplo como `.env.example` y los lockfiles se pueden versionar.
+
 La plantilla incluye navegación lateral plegable, modo claro y oscuro, una vista de dashboard y una página para rutas no encontradas. Es un punto de partida para tu aplicación; el demo muestra además el catálogo completo de componentes e integraciones. Los datos son de ejemplo y no incluye backend ni autenticación.
 
 Para generar y revisar la compilación de producción, dentro del proyecto:
@@ -91,6 +93,17 @@ También puedes agregar integraciones individualmente:
 | `npx @dediho/vue-kit add flatpickr` | Fecha y hora con Flatpickr. |
 
 Consulta los nombres disponibles con `npx @dediho/vue-kit list`.
+
+### Visor de imágenes y controles de rango
+
+```sh
+npx @dediho/vue-kit add image-viewer
+npx @dediho/vue-kit add range slider
+```
+
+`AppImageViewer` abre una colección de imágenes con miniaturas, zoom y navegación por teclado o gestos. Recibe `v-model` para abrirlo, `v-model:index` para la imagen seleccionada e `images` con objetos `{ src, alt, title?, thumbnail? }`. El CLI incluye el modal, el bloqueo de scroll y sus estilos.
+
+`AppRange` selecciona un número; `AppSlider` selecciona un intervalo `[mínimo, máximo]`. Ambos admiten `v-model`, `label`, `min`, `max`, `step`, `unit` y `disabled`. El slider mantiene los extremos ordenados y el input de rango admite pasos decimales.
 
 ## Usar en un proyecto Vue existente
 

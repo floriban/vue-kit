@@ -1,0 +1,23 @@
+.app-image-viewer { color: var(--color-dark); }
+.app-image-viewer__toolbar, .app-image-viewer__actions, .app-image-viewer__navigation { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.app-image-viewer__toolbar { margin-bottom: 14px; font-size: .85rem; }
+.app-image-viewer__actions { gap: 6px; }
+.app-image-viewer__actions output { min-width: 44px; text-align: center; font-variant-numeric: tabular-nums; }
+.app-image-viewer button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 36px; padding: 8px; border: 1px solid var(--color-border); border-radius: 7px; color: var(--color-dark); background: var(--color-surface); cursor: pointer; font: inherit; }
+.app-image-viewer button:hover:not(:disabled) { color: var(--color-primary); background: var(--color-primary-light); }
+.app-image-viewer button:disabled { opacity: .4; cursor: not-allowed; }
+.app-image-viewer button:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+.app-image-viewer__stage { position: relative; display: flex; align-items: center; justify-content: center; height: clamp(180px, 48dvh, 520px); overflow: hidden; border-radius: 8px; background: #121b2b; color: #fff; touch-action: pan-y; user-select: none; }
+.app-image-viewer__stage img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; flex-shrink: 0; }
+.app-image-viewer__stage.is-zoomed { cursor: grab; touch-action: none; }
+.app-image-viewer__stage.is-dragging { cursor: grabbing; }
+.app-image-viewer__stage img.is-loading { visibility: hidden; }
+.app-image-viewer__loading { position: absolute; }
+.app-image-viewer__message { text-align: center; padding: 20px; }
+.app-image-viewer__navigation { margin-top: 14px; font-size: .8rem; }
+.app-image-viewer__navigation p { margin: 0; text-align: center; color: var(--color-muted); }
+.app-image-viewer__thumbnails { display: flex; gap: 8px; overflow-x: auto; margin-top: 16px; padding: 4px; }
+.app-image-viewer__thumbnails button { flex: 0 0 70px; padding: 3px; }
+.app-image-viewer__thumbnails button[aria-current='true'] { outline: 2px solid var(--color-primary); }
+.app-image-viewer__thumbnails img { width: 62px; height: 42px; object-fit: cover; border-radius: 4px; }
+@media (max-width: 575px) { .app-image-viewer__navigation button span { display: none; } .app-image-viewer__toolbar { gap: 6px; } .app-image-viewer__stage { height: 40dvh; } }

@@ -20,6 +20,24 @@ test('create genera un dashboard mínimo sin instalar paquetes', async () => {
   try {
     run(['create', 'demo', '--cwd', temporary, '--skip-install'])
     const project = path.join(temporary, 'demo')
+    assert.equal(existsSync(path.join(project, 'gitignore')), false)
+    assert.equal(existsSync(path.join(project, '.npmignore')), false)
+    assert.equal(existsSync(path.join(project, 'node_modules')), false)
+    const gitignore = await readFile(path.join(project, '.gitignore'), 'utf8')
+    for (const pattern of ['node_modules', 'dist', '.env', '!.env.example']) {
+      assert.ok(gitignore.split(/\r?\n/).includes(pattern), pattern)
+    }
+    const gitInit = spawnSync('git', ['init', '--quiet'], { cwd: project, encoding: 'utf8' })
+    assert.equal(gitInit.status, 0, gitInit.stderr)
+    const ignored = spawnSync('git', ['check-ignore', '--stdin'], {
+      cwd: project, encoding: 'utf8', input: 'node_modules/example.js\ndist/index.html\n.env\n.env.local\n',
+    })
+    assert.equal(ignored.status, 0, ignored.stderr)
+    assert.equal(ignored.stdout.trim().split(/\r?\n/).length, 4)
+    const tracked = spawnSync('git', ['check-ignore', '--stdin'], {
+      cwd: project, encoding: 'utf8', input: '.env.example\npackage-lock.json\npnpm-lock.yaml\nyarn.lock\nsrc/main.ts\n',
+    })
+    assert.equal(tracked.status, 1, tracked.stdout || tracked.stderr)
     assert.equal(existsSync(path.join(project, 'src/layouts/AppDashboardLayout.vue')), true)
     assert.equal(existsSync(path.join(project, 'src/assets/vue-kit/theme.css')), true)
     assert.equal(JSON.parse(await readFile(path.join(project, 'package.json'), 'utf8')).name, 'demo')
@@ -46,6 +64,31 @@ test('create genera un dashboard mínimo sin instalar paquetes', async () => {
     )
     const demoLogo = await readFile(new URL('../../../public/logo.png', import.meta.url))
     assert.deepEqual(await readFile(path.join(project, 'public/logo.png')), demoLogo)
+  } finally {
+    await rm(temporary, { recursive: true, force: true })
+  }
+})
+
+test('visor y rangos incluyen dependencias, helpers y estilos al instalarlos', async () => {
+  const temporary = await mkdtemp(path.join(os.tmpdir(), 'vue-kit-media-ranges-'))
+  try {
+    run(['create', 'demo', '--cwd', temporary, '--skip-install'])
+    const project = path.join(temporary, 'demo')
+    run(['add', 'image-viewer', 'range', 'slider', '--cwd', project, '--skip-install'])
+    for (const filename of ['AppImageViewer.vue', 'AppModal.vue', 'AppRange.vue', 'AppSlider.vue']) {
+      assert.equal(existsSync(path.join(project, 'src/components/ui', filename)), true, filename)
+    }
+    for (const filename of ['modalScrollLock.ts', 'rangeValues.ts']) {
+      assert.equal(existsSync(path.join(project, 'src/composables', filename)), true, filename)
+    }
+    const styles = await readFile(path.join(project, 'src/assets/vue-kit-components.css'), 'utf8')
+    for (const filename of ['modals.css', 'image-viewer.css', 'ranges.css']) {
+      assert.ok(styles.includes(filename), filename)
+      assert.equal(existsSync(path.join(project, 'src/assets/styles/components', filename)), true)
+    }
+    assert.equal(styles.match(/ranges\.css/g)?.length, 1, 'Los estilos compartidos solo deben importarse una vez')
+    const config = JSON.parse(await readFile(path.join(project, 'vue-kit.json'), 'utf8'))
+    for (const name of ['image-viewer', 'modal', 'range', 'slider']) assert.ok(config.installed[name], name)
   } finally {
     await rm(temporary, { recursive: true, force: true })
   }

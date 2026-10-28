@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { cp, mkdir, readFile, readdir, stat, writeFile } from 'node:fs/promises'
+import { cp, mkdir, readFile, readdir, rename, stat, writeFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { spawnSync } from 'node:child_process'
@@ -39,12 +39,13 @@ async function writeJson(filename, value) {
   await writeFile(filename, JSON.stringify(value, null, 2) + '\n')
 }
 
-async function copyTree(source, destination, overwrite = false) {
+async function copyTree(source, destination, overwrite = false, excluded = []) {
   await mkdir(destination, { recursive: true })
   for (const entry of await readdir(source, { withFileTypes: true })) {
+    if (excluded.includes(entry.name)) continue
     const from = path.join(source, entry.name)
     const to = path.join(destination, entry.name)
-    if (entry.isDirectory()) await copyTree(from, to, overwrite)
+    if (entry.isDirectory()) await copyTree(from, to, overwrite, excluded)
     else if (overwrite || !existsSync(to)) await cp(from, to)
   }
 }
@@ -213,7 +214,9 @@ async function createProject(name, options) {
   const target = path.resolve(options.cwd, name)
   if (existsSync(target) && (await readdir(target)).length) throw new Error(`La carpeta "${target}" no está vacía.`)
   await mkdir(target, { recursive: true })
-  await copyTree(path.join(assetsRoot, 'template'), target, true)
+  await copyTree(path.join(assetsRoot, 'template'), target, true, ['node_modules', 'dist', '.npmignore'])
+  // npm omits .gitignore files from packages; ship a plain file and restore its name.
+  await rename(path.join(target, 'gitignore'), path.join(target, '.gitignore'))
   const projectFile = path.join(target, 'package.json')
   const project = await readJson(projectFile)
   project.name = path.basename(target).toLowerCase().replace(/[^a-z0-9-]+/g, '-')

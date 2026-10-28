@@ -64,6 +64,14 @@
 /http/503/ /http/503 301
 /http/504 / 200
 /http/504/ /http/504 301
+/icons/lucide / 200
+/icons/lucide/ /icons/lucide 301
+/icons/tabler / 200
+/icons/tabler/ /icons/tabler 301
+/icons/fontawesome / 200
+/icons/fontawesome/ /icons/fontawesome 301
+/image-viewer / 200
+/image-viewer/ /image-viewer 301
 /input-groups / 200
 /input-groups/ /input-groups 301
 /input-mask / 200
@@ -78,6 +86,8 @@
 /popovers/ /popovers 301
 /progress / 200
 /progress/ /progress 301
+/ranges / 200
+/ranges/ /ranges 301
 /select2 / 200
 /select2/ /select2 301
 /skeleton / 200

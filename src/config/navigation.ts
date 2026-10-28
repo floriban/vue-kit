@@ -56,6 +56,7 @@ export const navigationGroups: NavigationGroup[] = [
       { name: "notification-badges", label: "Indicadores" },
       { name: "avatars", label: "Avatares" },
       { name: "timeline", label: "Timeline" },
+      { name: "image-viewer", label: "Visor de imágenes" },
     ],
   },
   {
@@ -70,6 +71,7 @@ export const navigationGroups: NavigationGroup[] = [
       { name: "input-groups", label: "Input Group" },
       { name: "advanced-select", label: "Select avanzado" },
       { name: "file-upload", label: "File Upload" },
+      { name: "ranges", label: "Rango y slider" },
     ],
   },
   {
@@ -130,6 +132,7 @@ export const navigationGroups: NavigationGroup[] = [
     items: [
       { name: "icons-lucide", label: "Lucide" },
       { name: "icons-tabler", label: "Tabler Icons" },
+      { name: "icons-fontawesome", label: "Font Awesome" },
     ],
   },
   {

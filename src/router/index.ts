@@ -15,8 +15,11 @@ const router = createRouter({
       component: DocsLayout,
       redirect: '/dashboard',
       children: [
+        { path: 'image-viewer', name: 'image-viewer', component: () => import('../views/ImageViewerView.vue') },
+        { path: 'ranges', name: 'ranges', component: () => import('../views/RangesView.vue') },
         { path: 'icons/lucide', name: 'icons-lucide', component: () => import('../views/LucideIconsView.vue') },
         { path: 'icons/tabler', name: 'icons-tabler', component: () => import('../views/TablerIconsView.vue') },
+        { path: 'icons/fontawesome', name: 'icons-fontawesome', component: () => import('../views/FontAwesomeIconsView.vue') },
         { path: 'http-pages', name: 'http-pages', component: () => import('../views/HttpPagesView.vue') },
         ...httpPages.map((page) => ({
           path: 'http/' + page.code,

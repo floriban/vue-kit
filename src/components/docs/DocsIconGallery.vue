@@ -6,7 +6,7 @@ import DocsPageHeader from './DocsPageHeader.vue'
 defineProps<{
   title: string
   website: string
-  icons: { name: string; component: Component }[]
+  icons: { name: string; component: Component; props?: Record<string, unknown> }[]
 }>()
 </script>
 
@@ -27,7 +27,7 @@ defineProps<{
     </div>
     <ul class="icon-gallery">
       <li v-for="icon in icons" :key="icon.name" class="icon-gallery-item showcase-panel">
-        <component :is="icon.component" :size="28" aria-hidden="true" />
+        <component :is="icon.component" v-bind="icon.props ?? { size: 28 }" aria-hidden="true" />
         <code>{{ icon.name }}</code>
       </li>
     </ul>

@@ -60,6 +60,8 @@ const installByRoute: Record<string, RouteInstallConfig> = {
   'http-pages': { items: ['http-state'], description: 'Agrega el componente y las escenas visuales para comunicar errores HTTP con mensajes claros.' },
   'input-groups': { items: ['input-group'], description: 'Agrega grupos de entrada junto con los inputs, selects y botones que pueden contener.' },
   'input-mask': { items: ['input-mask'], description: 'Agrega entradas con máscaras para teléfonos, documentos, fechas y formatos personalizados.' },
+  'image-viewer': { items: ['image-viewer'], description: 'Agrega el visor con zoom, navegación y miniaturas, junto con el modal y sus estilos.' },
+  ranges: { items: ['range', 'slider'], description: 'Agrega el input de rango y el slider de intervalo con sus estilos y controles de teclado.' },
   modals: { items: ['modal'], description: 'Agrega diálogos modales accesibles para confirmaciones, formularios y contenido enfocado.' },
   pagination: { items: ['pagination'], description: 'Agrega la navegación paginada para recorrer colecciones de datos.' },
   popovers: { items: ['popover'], description: 'Agrega paneles flotantes para mostrar información y acciones contextuales.' },
